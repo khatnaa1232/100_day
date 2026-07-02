@@ -13,7 +13,7 @@ const IMAGES = [slide21Img, slide22Img, slide23Img, slide24Img, slide25Img, slid
 const calTiles = [
   { num: '100', label: 'ЧӨЛӨӨЛӨЛТ', accent: '#2ec5ff', glow: 'rgba(46,197,255,0.5)' },
   { num: '100', label: 'ӨДӨР', accent: '#f2b94b', glow: 'rgba(242,185,75,0.45)' },
-  { num: '12', label: 'ОНЦЛОХ', accent: '#22c55e', glow: 'rgba(34,197,94,0.45)' },
+  { num: '20', label: 'ОНЦЛОХ', accent: '#22c55e', glow: 'rgba(34,197,94,0.45)' },
 ];
 
 // Curved-slider options (from the reference: speed/gap/curve/direction)

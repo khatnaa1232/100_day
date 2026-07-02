@@ -1,11 +1,10 @@
-import unlock10Img from '../../imports/unlock_10.png';
 import unlock11Img from '../../imports/unlock_11.png';
 import unlock12Img from '../../imports/unlock_12.png';
 import { UnlockStorySlide } from './UnlockStorySlide';
 import { slide6Unlocks } from './unlockContent';
 
 export function Slide13() {
-  const [unlock10, unlock11, unlock12] = slide6Unlocks;
+  const [, unlock11, unlock12, unlock13] = slide6Unlocks;
 
   return (
     <UnlockStorySlide
@@ -16,14 +15,6 @@ export function Slide13() {
         glowC: 'bg-[#fb7185]/10',
       }}
       items={[
-        {
-          ...unlock10,
-          image: unlock10Img,
-          alt: 'Чингис хаан Баялгийн сан',
-          accent: '#a78bfa',
-          metric: '67.3 тэрбум',
-          metricLabel: 'жил бүр хэмнэнэ',
-        },
         {
           ...unlock11,
           image: unlock11Img,
@@ -38,6 +29,14 @@ export function Slide13() {
           alt: 'Нарны станц, хураагуур ба байршил',
           accent: '#facc15',
           metric: '220 МВт',
+          metricLabel: 'нарны станц',
+        },
+        {
+          ...unlock13,
+          image: unlock12Img,
+          alt: 'Нарны станц, хураагуур ба байршил',
+          accent: '#facc15',
+          metric: '1072',
           metricLabel: 'нарны станц',
         },
       ]}

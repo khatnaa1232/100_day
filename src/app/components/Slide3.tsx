@@ -2,9 +2,14 @@ import { CalendarDays } from 'lucide-react';
 import slide3WallImg from '../../imports/slide3wall.png';
 import unlockedImg from '../../imports/unlocked.png';
 
-const points = ['Амлалт биш асуудлын бодит шийдэл', 'Дуусдаггүй яриаг дуусгах алхмууд'];
+const points = ['АСУУДАЛ - ШИЙДЭЛ - БОДИТ ҮР ДҮН', 'Дуусдаггүй яриаг дуусгах алхмууд'];
 
 const ACCENT = '#f59e0b';
+// Эрчим хүчийг, Бусад Шаардлага болгох, тохирол - > бүртгэл
+// нүдээ олдоггүй халамж - > КОММИС
+// ШУДАРГА БУС ТЭТГЭВЭР - > МАГАДЛАГАА
+// 
+
 
 // Highlighted milestone date — 100 days before the mark.
 const TARGET = { year: 2026, month: 2, day: 30 }; // month is 0-based → March
@@ -92,9 +97,8 @@ export function Slide3() {
                 return (
                   <span
                     key={day}
-                    className={`relative grid h-5 place-items-center rounded-full text-[10px] font-black tabular-nums ${
-                      isTarget ? 'text-[#0a1426]' : 'text-white/80'
-                    }`}
+                    className={`relative grid h-5 place-items-center rounded-full text-[10px] font-black tabular-nums ${isTarget ? 'text-[#0a1426]' : 'text-white/80'
+                      }`}
                     style={isTarget ? { background: ACCENT, boxShadow: `0 0 14px ${ACCENT}88` } : undefined}
                   >
                     {isTarget && (

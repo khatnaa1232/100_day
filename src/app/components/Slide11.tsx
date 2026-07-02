@@ -11,6 +11,7 @@ export function Slide11() {
   return (
     <UnlockStorySlide
       chapter="Хэн ямар саадаас хэрхэн чөлөөлөгдсөн бэ?"
+      title="100 ЧӨЛӨӨЛӨЛТ 100 ӨДӨР"
       theme={{
         glowA: 'bg-[#f2b94b]/16',
         glowB: 'bg-[#2ec5ff]/14',

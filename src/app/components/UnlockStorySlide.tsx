@@ -45,6 +45,7 @@ type StoryItem = UnlockItem & {
 
 type UnlockStorySlideProps = {
   chapter: string;
+  title?: string;
   items: StoryItem[];
   theme: {
     glowA: string;
@@ -60,7 +61,12 @@ const cardFrames = [
   'right-[40px] top-[462px] h-[330px] w-[730px] z-30',
 ];
 
-export function UnlockStorySlide({ chapter, items, theme }: UnlockStorySlideProps) {
+export function UnlockStorySlide({
+  chapter,
+  title = '100 ЧӨЛӨӨЛӨЛТ 100 ӨДӨР',
+  items,
+  theme,
+}: UnlockStorySlideProps) {
   return (
     <div className="relative h-full w-full overflow-hidden text-white">
       <div className="absolute inset-0 pointer-events-none">
@@ -83,7 +89,7 @@ export function UnlockStorySlide({ chapter, items, theme }: UnlockStorySlideProp
               </p>
             </div>
             <h1 className="hundred-days-glow mt-5 text-[52px] leading-[0.94] font-black tracking-[-0.045em] text-white">
-              100 ЧӨЛӨӨЛӨЛТ 100 ӨДӨР
+              {title}
             </h1>
           </div>
 

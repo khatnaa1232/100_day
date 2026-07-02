@@ -61,9 +61,9 @@ function HL({ children, accent }: { children: ReactNode; accent: string }) {
 }
 
 const impactStats = [
-  { value: 30, suffix: 'их наяд ₮', label: 'төслийн зардал буурав', accent: '#f2b94b', trend: 'down' as const },
-  { value: 22, suffix: 'их наяд ₮', label: 'хүүд төлөх байсан зардал хэмнэгдэв', accent: '#2ec5ff', trend: 'down' as const },
-  { value: 13, suffix: 'их наяд ₮', label: 'Монголын өгөөж нэмэгдэв', accent: '#22c55e', trend: 'up' as const },
+  { value: 30, suffix: 'их наяд ₮', label: 'төслийн зардал буурч', accent: '#f2b94b', trend: 'down' as const },
+  { value: 22, suffix: 'их наяд ₮', label: 'хүүд төлөх байсан зардал хэмнэгдэж', accent: '#2ec5ff', trend: 'down' as const },
+  { value: 0, suffix: '', label: '', accent: '#22c55e', trend: 'up' as const },
 ];
 
 type Highlighter = (children: ReactNode) => ReactNode;
@@ -72,17 +72,12 @@ const detailPoints: { icon: typeof TrendingDown; accent: string; render: (H: Hig
   {
     icon: TrendingDown,
     accent: '#f2b94b',
-    render: (H) => <>Менежментийн зардлыг {H('8 орчим их наяд')} төгрөгөөр бууруулж, Монголын талын өгөөжийг {H('5 орчим их наяд')} төгрөгөөр нэмэв.</>,
+    render: (H) => <>Менежментийн зардлыг {H('~ 8 их наяд')} төгрөгөөр бууруулж, Монголын талын өгөөжийг {H('~ 5 их наяд')} төгрөгөөр нэмэв.</>,
   },
   {
     icon: Percent,
     accent: '#2ec5ff',
-    render: (H) => <>Зээлийн хүүг буулгаж, хүүнд төлөх байсан {H('22 их наяд')} төгрөгийг хэмнэв. Монголын талын хүртэх өгөөжийг {H('8 орчим их наяд')} төгрөгөөр нэмэв.</>,
-  },
-  {
-    icon: Gem,
-    accent: '#22c55e',
-    render: (H) => <>Нийт зардлыг {H('30 орчим их наяд')} төгрөгөөр бууруулж, Монголын өгөөжийг {H('13 их наядаар')} нэмэгдүүлэв.</>,
+    render: (H) => <>Зээлийн хүүг буулгаж, хүүнд төлөх байсан {H('22 их наяд')} төгрөгийг хэмнэв. Монголын талын хүртэх өгөөжийг {H('~ 8 их наяд')} төгрөгөөр нэмэв.</>,
   },
   {
     icon: Landmark,
@@ -140,6 +135,37 @@ export function Slide5() {
         </header>
 
         <section className="mt-7 grid min-h-0 flex-1 grid-cols-[1.12fr_0.88fr] gap-7">
+          <aside className="flex min-h-0 flex-col gap-4">
+            {detailPoints.map((point, index) => {
+              const Icon = point.icon;
+              const H: Highlighter = (children) => <HL accent={point.accent}>{children}</HL>;
+              return (
+                <LiquidGlass
+                  key={index}
+                  radius={26}
+                  className="min-h-0 flex-1 overflow-hidden border"
+                  style={{ borderColor: `${point.accent}42`, ...liquidShadow }}
+                  {...liquidGlassProps}
+                >
+                  <div className="relative flex h-full items-start gap-4 p-5">
+                    <span
+                      className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-[10px] border"
+                      style={{ borderColor: `${point.accent}66`, backgroundColor: `${point.accent}16`, color: point.accent }}
+                    >
+                      <Icon className="h-6 w-6" strokeWidth={2.5} />
+                    </span>
+                    <p className="text-[19px] leading-[1.34] font-normal italic tracking-[-0.015em] text-white/82">
+                      {point.render(H)}
+                    </p>
+                    <ArrowUpRight
+                      className="absolute right-4 top-4 h-5 w-5 opacity-45"
+                      style={{ color: point.accent }}
+                    />
+                  </div>
+                </LiquidGlass>
+              );
+            })}
+          </aside>
           <LiquidGlass
             radius={30}
             className="overflow-hidden border border-white/18"
@@ -208,18 +234,14 @@ export function Slide5() {
                 </div>
 
                 <div className="mt-auto grid grid-cols-[1fr_260px] gap-5">
-                  <div className="relative overflow-hidden rounded-[24px] border border-white/12 p-5" style={glassSoft}>
-                    <p className="mt-3 text-[27px] leading-[1.05] font-black tracking-[-0.035em] text-white">
-                      Зардал 30 орчим их наяд₮-өөр буурч, өгөөж 13 их наядаар нэмэгдэв.
-                    </p>
-                  </div>
                   <div className="relative overflow-hidden rounded-[24px] border border-[#22c55e]/38 p-5" style={glassSoft}>
                     <div className="flex items-center gap-3">
                       <CheckCircle2 className="h-8 w-8 flex-shrink-0 text-[#22c55e]" strokeWidth={2.5} />
-                      <p className="text-[13px] font-black uppercase tracking-[0.16em] text-[#22c55e]">Ногдол ашиг</p>
                     </div>
                     <p className="mt-4 text-[34px] leading-[0.96] font-black tracking-[-0.04em] text-white">
-                      2026 оноос шууд авч эхэлнэ
+                      13
+                      их наяд ₮
+                      Монголын өгөөж нэмэгдэв
                     </p>
                   </div>
                 </div>
@@ -227,37 +249,7 @@ export function Slide5() {
             </div>
           </LiquidGlass>
 
-          <aside className="flex min-h-0 flex-col gap-4">
-            {detailPoints.map((point, index) => {
-              const Icon = point.icon;
-              const H: Highlighter = (children) => <HL accent={point.accent}>{children}</HL>;
-              return (
-                <LiquidGlass
-                  key={index}
-                  radius={26}
-                  className="min-h-0 flex-1 overflow-hidden border"
-                  style={{ borderColor: `${point.accent}42`, ...liquidShadow }}
-                  {...liquidGlassProps}
-                >
-                  <div className="relative flex h-full items-start gap-4 p-5">
-                    <span
-                      className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-[10px] border"
-                      style={{ borderColor: `${point.accent}66`, backgroundColor: `${point.accent}16`, color: point.accent }}
-                    >
-                      <Icon className="h-6 w-6" strokeWidth={2.5} />
-                    </span>
-                    <p className="text-[19px] leading-[1.34] font-normal italic tracking-[-0.015em] text-white/82">
-                      {point.render(H)}
-                    </p>
-                    <ArrowUpRight
-                      className="absolute right-4 top-4 h-5 w-5 opacity-45"
-                      style={{ color: point.accent }}
-                    />
-                  </div>
-                </LiquidGlass>
-              );
-            })}
-          </aside>
+
         </section>
       </main>
 

@@ -15,7 +15,7 @@ import { Slide11 } from './components/Slide11';
 import { Slide12 } from './components/Slide12';
 import { Slide13 } from './components/Slide13';
 import { Slide14 } from './components/Slide14';
-import { Slide15 } from './components/Slide15';
+import { Slide15 } from './components/Slide15'; //order 3 hannii umnu orno
 import { Slide16 } from './components/Slide16';
 import { Slide17 } from './components/Slide17';
 import { Slide18 } from './components/Slide18';
@@ -71,7 +71,7 @@ const SLIDE_THUMBNAILS = [
   { title: 'Илүү олон жил төлбөл', subtitle: 'Илүү өндөр тэтгэвэртэй', accent: '#22c55e' },
   { title: 'Баталгаат тэтгэвэр', subtitle: 'Шинэ баталгаа', accent: '#22c55e' },
   { title: 'Цалингийн дээд хязгаар', subtitle: '2.4 саяас бодох', accent: '#f2b94b' },
-  { title: 'Тэтгэврийн шинэчлэл', subtitle: 'Бүр олуулаа даатгуул', accent: '#2bdc75' },
+  { title: 'Боловсролын чөлөөлөлт', subtitle: 'Гэрт ойрхон сургууль', accent: '#f5b632' },
   { title: 'Олон давхаргат тогтолцоо', subtitle: '3 давхарга · 3 эх үүсвэр', accent: '#f5b632' },
   { title: 'Бизнес, эдийн засгийн чөлөөлөлт', subtitle: 'Unlock 2–5 · 8 · 10 hero', accent: '#a78bfa' },
   { title: 'Хүн, салбар, ирээдүйн чөлөөлөлт', subtitle: 'Unlock 6 · 7 hero · 9 · 11 · 12', accent: '#38bdf8' },
@@ -105,27 +105,27 @@ export default function App() {
   const slides = [
     Slide1,
     Slide2,
+    Slide15,
     Slide3,
     Slide4,
     Slide5,
-    Slide6,
-    Slide7,
     Slide8,
     Slide9,
     Slide10,
     Slide11,
     Slide12,
     Slide13,
-    Slide14,
-    Slide15,
-    Slide16,
+    Slide6,
+    Slide7,
     Slide17,
-    Slide18,
     Slide19,
     Slide20,
     Slide21,
     Slide22,
     Slide23,
+    Slide18,
+    Slide16,
+    Slide14,
     Slide24,
     Slide25,
   ];

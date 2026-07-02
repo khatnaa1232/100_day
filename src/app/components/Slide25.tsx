@@ -19,9 +19,9 @@ export function Slide25() {
           className="slide25-center-logo absolute left-1/2 top-[298px] h-[100px] -translate-x-1/2 object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.28)]"
         />
         <h1 className="absolute inset-x-0 top-[430px] text-center text-[92px] leading-[1.08] font-black tracking-tight text-white drop-shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          АНХААРАЛ ХАНДУУЛСАНД
+          ЭРХ ЧӨЛӨӨНИЙ НАР МОНГОЛ ХҮН БҮХНИЙГ ИВЭЭХ БОЛТУГАЙ
           <span className="block mt-3 text-transparent bg-clip-text bg-gradient-to-r from-chart-3 via-primary to-chart-2 drop-shadow-[0_0_35px_rgba(46,197,255,0.35)]">
-            БАЯРЛАЛАА
+
           </span>
         </h1>
       </main>

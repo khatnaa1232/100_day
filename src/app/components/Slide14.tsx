@@ -47,7 +47,7 @@ export function Slide14() {
           style={{ boxShadow: '0 25px 50px rgba(0,0,0,0.22)' }}
         >
           <p className="text-[28px] italic leading-[1.46] text-white" style={{ fontFamily: 'Lora, serif', fontWeight: 500 }}>
-            “Улс орны тусгаар тогтнолоо эдийн засгийн эрх чөлөөгөөр гагнах нь та бидний бүгдийн эрхэм дээд зорилго юм.”
+            “Эх орныхоо тусгаар тогтнолыг эдийн засгийн эрх чөлөөгөөр баталгаажуулах нь Та бидний эрхэм дээд зорилго юм”.
           </p>
           <p className="mt-6 text-[16px] font-bold uppercase tracking-[0.16em] text-white/55">
             Монгол Улсын Ерөнхий сайд Ням-Осорын УЧРАЛ

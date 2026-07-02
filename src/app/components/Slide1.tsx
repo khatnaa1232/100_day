@@ -36,9 +36,9 @@ export function Slide1() {
 
         <div className="flex flex-col items-start text-left">
           <h1 className="hundred-days-glow max-w-[820px] text-[92px] leading-[0.94] font-black tracking-[-0.05em] text-white drop-shadow-[0_14px_40px_rgba(0,0,0,0.38)]">
-            <span>100 ӨДӨР</span>
-            <br />
             <span>100 ЧӨЛӨӨЛӨЛТ</span>
+            <br />
+            <span>100 ӨДӨР</span>
           </h1>
 
           <p className="mt-9 max-w-[720px] text-[34px] leading-[1.16] font-black tracking-[-0.03em] text-white/92 animate-[fadeUp_0.9s_ease-out_0.3s_both]">

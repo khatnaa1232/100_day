@@ -1,5 +1,50 @@
 .s13-slide {
   color: #fff;
+  background: #061026;
+}
+
+.s13-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 16% 16%, rgba(0, 182, 90, 0.16), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(245, 201, 21, 0.12), transparent 28%),
+    linear-gradient(115deg, rgba(4, 12, 34, 0.9), rgba(11, 30, 74, 0.78) 48%, rgba(8, 13, 28, 0.92));
+}
+
+.s13-grid-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.24;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(circle at 50% 45%, #000 34%, transparent 82%);
+}
+
+.s13-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(82px);
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.s13-orb-a {
+  left: 7%;
+  top: 10%;
+  width: 330px;
+  height: 330px;
+  background: rgba(34, 88, 255, 0.5);
+}
+
+.s13-orb-b {
+  right: 15%;
+  top: 8%;
+  width: 300px;
+  height: 300px;
+  background: rgba(245, 201, 21, 0.22);
 }
 
 .s13-layout {
@@ -83,14 +128,10 @@
   width: min(100%, 440px);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(6, 22, 61, 0.34), rgba(6, 22, 61, 0.18));
+  background: rgba(255, 255, 255, 0.075);
   padding: 16px 18px;
   text-align: center;
-  box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.20),
-    inset 0 1px 0 rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(2.5px) saturate(115%);
-  -webkit-backdrop-filter: blur(2.5px) saturate(115%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .s13-count-card span,
@@ -208,13 +249,9 @@
   gap: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(6, 22, 61, 0.34), rgba(6, 22, 61, 0.18));
+  background: rgba(7, 23, 71, 0.42);
   padding: 14px;
-  box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(2.5px) saturate(115%);
-  -webkit-backdrop-filter: blur(2.5px) saturate(115%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .s13-main-points span {
@@ -277,13 +314,8 @@
   gap: 16px;
   border: 1px solid rgba(245, 201, 21, 0.26);
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(6, 22, 61, 0.34), rgba(6, 22, 61, 0.18));
+  background: rgba(49, 50, 64, 0.78);
   padding: 15px 18px;
-  box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.20),
-    inset 0 1px 0 rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(2.5px) saturate(115%);
-  -webkit-backdrop-filter: blur(2.5px) saturate(115%);
 }
 
 .s13-standard span {
@@ -355,11 +387,8 @@
   min-height: 28px;
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 8px;
-  background: linear-gradient(180deg, rgba(6, 22, 61, 0.34), rgba(6, 22, 61, 0.18));
+  background: rgba(7, 23, 71, 0.47);
   padding: 4px 10px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(2.5px) saturate(115%);
-  -webkit-backdrop-filter: blur(2.5px) saturate(115%);
 }
 
 .s13-table-row>span,
@@ -424,6 +453,7 @@
 
 .s13-table-total {
   border-color: rgba(245, 201, 21, 0.4);
+  background: rgba(245, 201, 21, 0.11);
 }
 
 .s13-table-total span {
@@ -464,14 +494,9 @@
 .s13-budget-grid article {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 15px;
-  background: linear-gradient(180deg, rgba(6, 22, 61, 0.34), rgba(6, 22, 61, 0.18));
+  background: rgba(8, 23, 71, 0.55);
   padding: 12px 10px;
   text-align: center;
-  box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(2.5px) saturate(115%);
-  -webkit-backdrop-filter: blur(2.5px) saturate(115%);
 }
 
 .s13-budget-grid span {
@@ -503,8 +528,7 @@
     radial-gradient(circle at 44% 40%, rgba(74, 118, 209, 0.2), transparent 42%),
     rgba(2, 7, 20, 0.78);
   padding: 46px 58px 82px;
-  backdrop-filter: blur(2.5px) saturate(115%);
-  -webkit-backdrop-filter: blur(2.5px) saturate(115%);
+  backdrop-filter: blur(10px);
 }
 
 .s13-modal-panel {
@@ -514,13 +538,12 @@
   border: 1px solid rgba(142, 169, 221, 0.24);
   border-radius: 24px;
   background:
-    linear-gradient(180deg, rgba(6, 22, 61, 0.34), rgba(6, 22, 61, 0.18));
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    radial-gradient(circle at 84% 0%, rgba(245, 201, 21, 0.14), transparent 34%),
+    linear-gradient(135deg, rgba(5, 17, 55, 0.98), rgba(12, 27, 78, 0.96) 54%, rgba(18, 26, 45, 0.95));
   background-size: 42px 42px, 42px 42px, auto, auto;
-  box-shadow:
-    0 25px 50px rgba(0, 0, 0, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.10);
-  backdrop-filter: blur(2.5px) saturate(115%);
-  -webkit-backdrop-filter: blur(2.5px) saturate(115%);
+  box-shadow: 0 36px 92px rgba(0, 0, 0, 0.56);
 }
 
 .s13-modal-header {
@@ -741,7 +764,7 @@
 }
 
 .s13-hero {
-  animation: s13-fadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: s13-fadeInLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .s13-kicker {
@@ -749,7 +772,7 @@
 }
 
 .s13-hero h1 {
-  animation: s13-fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+  animation: s13-fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
 }
 
 .s13-count-card:nth-of-type(1) {

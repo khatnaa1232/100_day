@@ -33,28 +33,28 @@ const signals: Signal[] = [
   {
     label: 'ДНБ-ийн өсөлт',
     value: '6.8%',
-    note: 'Бодит ДНБ 34.3 их наяд төгрөгт хүрч өссөн.',
+    note: 'ДНБ 89.9 их наяд төгрөгт хүрч өссөн.',
     heat: 68,
     icon: TrendingUp,
   },
   {
     label: 'Өрсөлдөх чадвар',
-    value: '65 → 58',
-    note: '2027 онд 7 эрэмбээр ахиулах зорилттой.',
+    value: '67 / 70',
+    note: 'Өнөөгийн байдлаар /эх сурвалж : Дэлхийн өрсөлдөөний төв/',
     heat: 58,
     icon: Target,
   },
   {
     label: 'Гадаад худалдаа',
-    value: '27.0 тэрбум $',
+    value: '27.2 тэрбум $',
     note: 'Тэнцэл 4.4 тэрбум ам.долларын ашигтай.',
     heat: 86,
     icon: Globe2,
   },
   {
     label: 'Инфляц',
-    value: '7.5%',
-    note: '2026 оны 3 дугаар сард 7.4 хувь.',
+    value: '11.2%',
+    note: '2026 оны 5 сар',
     heat: 45,
     icon: Percent,
   },
@@ -62,8 +62,8 @@ const signals: Signal[] = [
 
 const issues: Issue[] = [
   { title: 'Уул уурхай, нүүрсний эдийн засаг', label: 'Хамаарал', icon: Factory },
-  { title: 'Хувийн хэвшилтэйгээ өрсөлддөг төр', label: 'Төрийн оролцоо', icon: Landmark },
-  { title: 'Татварын хүнд ачаа дарамт', label: 'Дарамт', icon: BarChart3 },
+  { title: 'Хувийн хэвшилтэйгээ өрсөлддөг', label: 'Төрийн оролцоо', icon: Landmark },
+  { title: 'Татварын хүнд ачаа, дарамт', label: 'Дарамт', icon: BarChart3 },
   { title: 'Хүнд суртал, хууль бус ашиг сонирхол', label: 'Саад', icon: ShieldAlert },
   { title: 'Хөрөнгө оруулагчдын алдарсан итгэл', label: 'Итгэл', icon: AlertTriangle },
 ];
@@ -87,9 +87,6 @@ export function Slide15() {
                 <br />
                 <span className="text-primary">ЧӨЛӨӨЛӨЛТ</span>
               </h1>
-              <p className="mt-4 max-w-[1060px] text-[16px] leading-[1.18] font-black uppercase tracking-[0.035em] text-white/62">
-                Түүхий эд гаргадаг түүхийг өөрчилж, үнэ цэн, өртөг ашиг нэмж боловсруулах үйлдвэрүүдийн үүдийг нээнэ
-              </p>
             </div>
           </div>
 
@@ -98,13 +95,6 @@ export function Slide15() {
 
         <section className="mt-8 grid min-h-0 flex-1 grid-cols-[38%_minmax(0,1fr)] gap-9">
           <aside className="flex min-h-0 flex-col pr-4 animate-[ecoLeft_.75s_ease-out_.08s_both]">
-            <p
-              className="border-y border-primary/32 py-5 text-[29px] leading-[1.1] font-black italic text-primary"
-              style={{ fontFamily: 'Lora, serif' }}
-            >
-              “Төрийн зуршлаас хувийн хэвшил үү”
-            </p>
-
             <div className="mt-7 flex items-start gap-3">
               <span className="mt-1 h-9 w-2 bg-primary" />
               <div>
@@ -126,26 +116,26 @@ export function Slide15() {
                   </span>
                   <div className="min-w-0">
                     <p className="text-[12px] font-black uppercase tracking-[0.2em] text-primary">гол хэмжүүр</p>
-                    <h3 className="mt-1 text-[24px] leading-[1.02] font-black">Эдийн засгийн эрх чөлөө</h3>
+                    <h3 className="mt-1 text-[24px] leading-[1.02] font-black">/ World competitiveness center /</h3>
                   </div>
                 </div>
 
                 <div className="mt-auto">
-                  <p className="text-[76px] leading-[0.82] font-black tracking-[-0.06em] tabular-nums">74/176</p>
+                  <p className="text-[76px] leading-[0.82] font-black tracking-[-0.06em] tabular-nums">69 / 176</p>
                   <div className="mt-4 h-[5px] bg-white/12">
                     <div className="h-full w-[42%] origin-left bg-primary animate-[ecoBar_1s_ease-out_.35s_both]" />
                   </div>
                   <p className="mt-4 max-w-[430px] text-[15px] leading-[1.18] font-bold text-white/64">
-                    2025 онд эдийн засгийн эрх чөлөөний индексээр 74 дүгээр байрт эрэмбэлэгдсэн.
+                    2025 онд эдийн засгийн эрх чөлөөний индекс.
                   </p>
+                  <p>/ Heritage foundation /</p>
                 </div>
 
                 <div className="mt-auto border-t border-white/14 pt-4">
                   <p className="text-[12px] font-black uppercase tracking-[0.2em] text-primary">Хувийн хэвшлийн орон зай</p>
                   <div className="mt-2 flex items-center gap-3">
                     <span className="text-[38px] leading-none font-black tracking-[-0.04em] text-white">76.2%</span>
-                    <ArrowRight className="h-6 w-6 text-primary" strokeWidth={3} />
-                    <span className="text-[38px] leading-none font-black tracking-[-0.04em] text-primary">79%</span>
+
                   </div>
                 </div>
               </div>

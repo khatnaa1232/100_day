@@ -1,37 +1,145 @@
-import chuluulyImg from '../../imports/chuluuly.png';
+import backgroundImg from '../../imports/back_copy.jpg';
+import slideImgA from '../../imports/Slide_6a.png';
+import slideImgB from '../../imports/Slide_6b.png';
+import slideImgC from '../../imports/Slide_6c.png';
+import '../../styles/slide07.css';
+
+const slideImages = [
+  { src: slideImgA, alt: 'Тэтгэврийн шинэчлэл 1' },
+  { src: slideImgB, alt: 'Тэтгэврийн шинэчлэл 2' },
+  { src: slideImgC, alt: 'Тэтгэврийн шинэчлэл 3' },
+];
+
+const cards = [
+  {
+    variant: 's07-card-teal',
+    animCls: 's07-c1',
+    label: 'ХҮНИЙ КАПИТАЛ',
+    stat: '+',
+    metric: 'өсөлт',
+    meter: '42%',
+    text: 'Олуулаа болох бодлого:',
+    sub: 'Хүн нэмбэл хүнс нэмнэ',
+  },
+  {
+    variant: 's07-card-gold',
+    animCls: 's07-c2',
+    label: 'ЖИЛ БҮР НЭМ',
+    stat: '+4%',
+    metric: 'жил бүр',
+    meter: '62%',
+    text: 'Тэтгэврийн наснаас хойш тэтгэврээ тогтоолговол',
+    sub: 'жил бүр 4% нэмэгдэнэ',
+  },
+  {
+    variant: 's07-card-gold',
+    animCls: 's07-c3',
+    label: 'тэтгэвэр нэмэгдэх хувь',
+    stat: '+12%',
+    metric: 'нэмэгдэл',
+    meter: '82%',
+    text: 'Эмэгтэй даатгуулагч 57-тайдаа биш 60-тайдаа тэтгэвэрт гарвал',
+    sub: '12% нэмэгдэнэ',
+  },
+  {
+    variant: 's07-card-teal',
+    animCls: 's07-c4',
+    label: 'ХАМРАЛТ ИХ',
+    stat: '+',
+    metric: 'тэнцэл',
+    meter: '54%',
+    text: 'Даатгуулагч олонтой бол',
+    sub: 'алдагдал багатай',
+  },
+];
 
 export function Slide22() {
   return (
-    <div className="w-full h-full relative overflow-hidden">
+    <div className="size-full relative overflow-hidden bg-slate-950">
+
+      {/* ── Background ── */}
       <div className="absolute inset-0">
-        <div className="absolute left-1/2 top-1/2 w-[920px] h-[620px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[120px] animate-pulse" />
-        <div className="absolute left-[20%] top-[24%] w-[340px] h-[340px] rounded-full bg-chart-3/10 blur-[90px]" />
-        <div className="absolute right-[18%] bottom-[20%] w-[380px] h-[380px] rounded-full bg-chart-2/10 blur-[100px]" />
+        <img src={backgroundImg} alt="" className="size-full object-cover" />
       </div>
 
-      <div className="absolute inset-x-28 top-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-      <div className="absolute inset-x-28 bottom-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+      {/* ── Main layout ── */}
+      <div className="s07-layout relative size-full flex items-center gap-10 px-12 py-8">
 
-      <main className="relative z-10 w-full h-full animate-[fadeUp_0.9s_ease-out_both]">
-        <img
-          src={chuluulyImg}
-          alt="Чөлөөлье"
-          className="slide17-center-logo absolute left-1/2 top-[298px] h-[100px] -translate-x-1/2 object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.28)]"
-        />
-        <h1 className="absolute inset-x-0 top-[430px] text-center text-[92px] leading-[1.08] font-black tracking-tight text-white drop-shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          АНХААРАЛ ХАНДУУЛСАНД
-          <span className="block mt-3 text-transparent bg-clip-text bg-gradient-to-r from-chart-3 via-primary to-chart-2 drop-shadow-[0_0_35px_rgba(46,197,255,0.35)]">
-            БАЯРЛАЛАА
-          </span>
-        </h1>
-      </main>
+        {/* ── Left: image ── */}
+        <div className="s07-image-col">
+          <div className="s07-image-wrap">
+            {slideImages.map((image, index) => (
+              <img
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                className={`s07-flow-image s07-flow-image-${index + 1}`}
+              />
+            ))}
+            <div className="s07-img-sheen" />
+          </div>
+        </div>
 
-      <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+        {/* ── Right: content ── */}
+        <div className="s07-right flex-1 min-w-0">
+
+          {/* Sub-label */}
+          <div className="s07-sublabel">
+            <span className="s07-sublabel-dot" />
+            Шинэчлэл, шийдэл: Хүний хөдөлмөрийн шударга үнэлгээ. II дахь давхарга
+          </div>
+
+          {/* Main title */}
+          <h1 className="s07-title">
+            Илүү олон жил төлбөл<br />
+            <span className="s07-title-green">илүү өндөр тэтгэвэртэй</span>
+          </h1>
+
+          <div className="s07-hero-card">
+            <div className="s07-hero-copy">
+              <span>Гол зарчим</span>
+              <strong>ТӨЛСӨН ШИМТГЭЛИЙН ХЭМЖЭЭ, ХУГАЦААНААС ХАМААРЧ ТЭТГЭВРИЙГ ТОГТООНО</strong>
+            </div>
+            <div className="s07-hero-pill">шударга урамшуулал</div>
+          </div>
+
+          <div className="s07-benefit-strip">
+            <div>
+              <span>Нэг жил хойшлуулбал</span>
+              <strong>+4%</strong>
+            </div>
+            <div>
+              <span>57 биш 60 настайд</span>
+              <strong>+12%</strong>
+            </div>
+            <div>
+              <span>Даатгуулагч олон бол</span>
+              <strong>НДШ орлого нэмэгдэнэ</strong>
+            </div>
+          </div>
+
+          {/* 2×2 cards */}
+          <div className="s07-grid">
+            {cards.map((c) => (
+              <div key={c.label} className={`s07-card ${c.variant} ${c.animCls}`}>
+                <div className="s07-card-stat">
+                  <strong>{c.stat}</strong>
+                  <span>{c.metric}</span>
+                </div>
+                <div className="s07-card-body">
+                  <span className="s07-card-label">{c.label}</span>
+                  <div className="s07-card-text">{c.text}</div>
+                  <div className="s07-card-sub">{c.sub}</div>
+                  <div className="s07-meter" aria-hidden="true">
+                    <span style={{ width: c.meter }} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
     </div>
   );
 }

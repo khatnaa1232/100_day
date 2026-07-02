@@ -17,14 +17,7 @@ export function Slide12() {
         glowC: 'bg-[#f97316]/10',
       }}
       items={[
-        {
-          ...unlock6,
-          image: unlock6Img,
-          alt: 'Татварын онцлох 6 чөлөөлөлтийн постер',
-          accent: '#a78bfa',
-          metric: '2027.01.01',
-          metricLabel: 'хэрэгжиж эхэлнэ',
-        },
+
         {
           ...unlock7,
           image: unlock7Img,
@@ -46,7 +39,7 @@ export function Slide12() {
           image: unlock9Img,
           alt: 'EXCEL Word тайлангууд давхардсан, DELETE товч',
           accent: '#f97316',
-          metric: '70% / 30%',
+          metric: '30% / 70%',
           metricLabel: 'тайлан ба үйлчилгээ',
         },
       ]}

@@ -52,13 +52,14 @@ const blocks: PermitBlock[] = [
     accent: '#22c55e',
     icon: LockOpen,
     items: [
-      <>ЗӨВШӨӨРӨЛ АВАХАД ТАТВАР, НДШ-Н ШИМТГЭЛИЙН ӨРГҮЙ БАЙХ ШААРДЛАГА ТАВИХГҮЙ</>,
+      <>ЗӨВШӨӨРӨЛ АВАХАД ТАТВАР, НДШ-ИЙН ӨРГҮЙ БАЙХ ШААРДЛАГА ТАВИХГҮЙ</>,
       <>ЭРСДЭЛ БАГАТАЙ БИЗНЕС МЭДЭГДЭЭД ШУУД ЭХЭЛНЭ</>,
       <>
-        ТУСГАЙ ЗӨВШӨӨРӨЛ 10 ЖИЛ
-        <span className="block text-white/70">ЭНГИЙН ЗӨВШӨӨРӨЛ 5 ЖИЛ</span>
+        ЗӨВШӨӨРЛИЙН ХУГАЦАА
+        <span className="block text-white/70">ТУСГАЙ : 5 жил - 10 жил</span>
+        <span className="block text-white/70">ЭНГИЙН : 3 жил - 5 жил</span>
       </>,
-      <>ЗӨРЧИЛГҮЙ БОЛ ЗӨВШӨӨРЛӨӨ 2 ӨДӨРТ ШУУД СУНГУУЛНА</>,
+      <>ЗӨРЧИЛГҮЙ БОЛ ЗӨВШӨӨРЛӨӨ 2 ӨДӨРТ СУНГУУЛНА</>,
     ],
     metrics: [
       { value: '10', label: 'жил тусгай зөвшөөрөл', icon: FileCheck2, accent: '#22c55e' },
@@ -67,38 +68,32 @@ const blocks: PermitBlock[] = [
     ],
   },
   {
-    title: 'Зөвшөөрлийн төрөл өөрчлөгдөв',
+    title: 'Зөвшөөрөл',
     accent: '#f2b94b',
     icon: GitBranch,
     items: [
-      <>Эрчим хүч, санхүү, даатгал, үнэт цаас, боловсролын салбарын 41 ЗӨВШӨӨРӨЛ ХЭРЭГГҮЙ БОЛОВ</>,
+      <>Эрчим хүч, санхүү, даатгал, үнэт цаас, боловсролын салбарын 41 ЗӨВШӨӨРӨЛ БАЙХГҮЙ БОЛОВ</>,
       <>
         24 ТУСГАЙ ЗӨВШӨӨРЛӨӨС ЭНГИЙН ЗӨВШӨӨРӨЛ
-        <span className="block text-white/70">7 ТУСГАЙ, ЭНГИЙН ЗӨВШӨӨРӨЛ МЭДЭГДЭЛД БОЛОВ</span>
+        <span className="block text-white/70">7 ТУСГАЙ, ЭНГИЙН ЗӨВШӨӨРӨЛ МЭДЭГДЭЛ БОЛОВ</span>
       </>,
     ],
     metrics: [
-      { value: '41', label: 'зөвшөөрөл хэрэггүй болов', icon: Ban, accent: '#fb7185' },
+      { value: '41', label: 'зөвшөөрөл байхгүй болов', icon: Ban, accent: '#fb7185' },
       { value: '24', label: 'тусгай → энгийн', icon: GitBranch, accent: '#f2b94b' },
-      { value: '7', label: 'мэдэгдэлд болов', icon: ClipboardCheck, accent: '#2ec5ff' },
+      { value: '7', label: 'мэдэгдэл болов', icon: ClipboardCheck, accent: '#2ec5ff' },
     ],
   },
   {
-    title: 'Олголт ба салбарын зохицуулалт',
+    title: '',
     accent: '#2ec5ff',
     icon: Handshake,
     items: [
       <>
         МЭРГЭЖЛИЙН НЭГДСЭН ХОЛБООД 120 ЗӨВШӨӨРӨЛ ОЛГОНО
-        <span className="mt-2 block text-white/70">
-          Байгаль орчин, санхүү, барилга, зам, тээвэр, боловсрол, уул уурхай, харилцаа холбоо, ХХАА, эрүүл мэнд, эрчим хүчний салбарууд
-        </span>
       </>,
       <>
-        НЭГ ТӨРЛИЙН ҮЙЛ АЖИЛЛАГААНЫ 3-4 ТӨРЛИЙН ТУСГАЙ ЗӨВШӨӨРЛӨӨС ЧӨЛӨӨЛӨВ
-        <span className="mt-2 block text-white/70">
-          Жишээ нь: 16 давхар барилга барихын тулд 3-4 жилийн туршид 3 тусгай зөвшөөрөл авахаас чөлөөлөв.
-        </span>
+        НЭГ ТӨРЛИЙН ҮЙЛ АЖИЛЛАГААНД 4 БИШ 1 ТУСГАЙ ЗӨВШӨӨРӨЛ
       </>,
     ],
     metrics: [
@@ -147,9 +142,7 @@ function PermitPanel({ block, index }: { block: PermitBlock; index: number }) {
         <div className="absolute -right-14 -top-16 h-48 w-48 rounded-full opacity-20 blur-3xl transition duration-300 group-hover:opacity-35" style={{ backgroundColor: block.accent }} />
         <div className="relative flex items-start justify-between gap-4">
           <div>
-            <p className="text-[12px] font-black uppercase tracking-[0.18em]" style={{ color: block.accent }}>
-              Зөвшөөрлийн хуулийн шинэчлэл:
-            </p>
+
             <h2 className="mt-2 text-[25px] leading-[1.02] font-black tracking-[-0.03em] text-white">{block.title}</h2>
           </div>
           <span
@@ -205,6 +198,7 @@ export function Slide9() {
             ЗӨВШӨӨРӨЛ НЭРТЭЙ
             <span className="block text-[#f2b94b]">ХОРИГЛОЛТООС ЧӨЛӨӨЛӨВ</span>
           </h1>
+          Зөвшөөрлийн хуулийн шинэчлэл:
         </header>
 
         <section className="mt-7 grid min-h-0 flex-1 grid-cols-3 gap-6">

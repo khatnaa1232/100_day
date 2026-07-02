@@ -35,7 +35,7 @@ const meta: Omit<ShowcaseUnlock, keyof UnlockItem>[] = [
   { image: unlock6Img, alt: 'Татварын онцлох 6 чөлөөлөлтийн постер', accent: '#a78bfa', metric: '2027.01.01', metricLabel: 'хэрэгжиж эхэлнэ' },
   { image: unlock7Img, alt: 'Эмч, багш ажлаа хийж буй', accent: '#22c55e', metric: '131340', metricLabel: 'ажилтан чөлөөлөв' },
   { image: unlock8Img, alt: 'Түлш шатахуун, Ерөнхий сайдтай ярьж буй', accent: '#38bdf8', metric: '1.8 их наяд', metricLabel: 'эрсдэлээс сэргийлэв' },
-  { image: unlock9Img, alt: 'EXCEL Word тайлангууд давхардсан, DELETE товч', accent: '#f97316', metric: '70% / 30%', metricLabel: 'тайлан ба үйлчилгээ' },
+  { image: unlock9Img, alt: 'EXCEL Word тайлангууд давхардсан, DELETE товч', accent: '#f97316', metric: '70% тайлан / 30% үйлчилгээ', metricLabel: '' },
   { image: unlock10Img, alt: 'Чингис хаан Баялгийн сан', accent: '#a78bfa', metric: '67.3 тэрбум', metricLabel: 'жил бүр хэмнэнэ' },
   { image: unlock11Img, alt: 'Эмийн лаборатори', accent: '#fb7185', metric: '263', metricLabel: 'эм жагсаалтаас хасав' },
   { image: unlock12Img, alt: 'Нарны станц, хураагуур ба байршил', accent: '#facc15', metric: '220 МВт', metricLabel: 'нарны станц' },

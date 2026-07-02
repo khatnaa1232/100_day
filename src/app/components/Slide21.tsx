@@ -1,185 +1,227 @@
-import type { CSSProperties } from 'react';
-import {
-  BookOpenText,
-  Clapperboard,
-  FileText,
-  Image as ImageIcon,
-  LayoutTemplate,
-} from 'lucide-react';
+import { type ReactNode, useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import backgroundImg from '../../imports/back_copy.jpg';
+import '../../styles/slide13b.css';
 
-const contentCards = [
-  {
-    number: '01',
-    title: '• Нэвтрүүлэг. Хийсэн үндсэн ажлууд. Тогтоол шийдвэр.',
-    icon: Clapperboard,
-    accent: '#2EC5FF',
-    items: [
-      '“Өмнө ба дараа”, “хөгжингүй орнуудад ямар байдаг вэ” гэсэн концепцтой.',
-      'Нэг сэдэв нэг рийл болох угсралттай.',
-    ],
-  },
-  {
-    number: '02',
-    title: '• Сэтгүүл',
-    icon: BookOpenText,
-    accent: '#F2B94B',
-    items: [
-      'Үзэл санаа. Ерөнхий сайдын ярилцлага. Зохиогчийн нийтлэл. Хүлээн зөвшөөрөгдсөн хүмүүсийн эшлэл.',
-      'Хийсэн ажлууд. Чөлөөлье үзэл санааны тодотголтой.',
-    ],
-  },
-  {
-    number: '03',
-    title: '• Нийтлэлүүд',
-    icon: FileText,
-    accent: '#10B981',
-    items: [
-      '100 хоногийг тойрсон нийтлэлүүд.  ~3 нийтлэлч.',
-      ' Хөрөг.',
-      ' Харьцуулбар.',
-      ' Аль нэг ажлыг онцолсон. Гэх мэт хэлбэрүүдээр.',
-    ],
-  },
-  {
-    number: '04',
-    title: '• Постер/постууд',
-    icon: ImageIcon,
-    accent: '#EF7B7B',
-    items: [
-      'Хийсэн ажлуудыг үзэл санааны тодотголтойгоор харуулах.',
-      'Жишээ нь тэтгэврийн шинэчлэлээр, “ .... ийм ийм зүйлүүд хийгдлээ.',
-      'Ийнхүү тэтгэвэр бодох зарчмын ойлгомжгүй байдлыг халж, цаг үе, нийгмийн шаардлагад нийцүүлэн тогтоов” гэх мэт.',
-    ],
-  },
+const pensionRows = [
+  { group: 'Хувь тэнцүүлсэн тэтгэврийн доод хэмжээ', amount: '652,400', count: 258, increase: 68215 },
+  { group: 'Бүрэн тэтгэврийн доод хэмжээ', amount: '769,000', count: 4156, increase: 66758 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '652,401-799,999', count: 4552, increase: 60255 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '800,000-999,999', count: 36656, increase: 91153 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '1,000,000-1,199,999', count: 38384, increase: 184785 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '1,200,000-1,399,999', count: 26341, increase: 287493 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '1,400,000-1,599,999', count: 14603, increase: 310698 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '1,600,000-1,799,999', count: 8075, increase: 303688 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '1,800,000-1,999,999', count: 4085, increase: 247828 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '2,000,000-2,199,999', count: 2010, increase: 166293 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '2,200,000-2,399,999', count: 1054, increase: 124871 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '2,400,000-2,599,999', count: 455, increase: 83318 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '2,600,000-2,799,999', count: 244, increase: 81485 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '2,800,000-3,000,000', count: 85, increase: 64730 },
+  { group: 'Тэтгэврийн доод хэмжээнээс дээш', amount: '>3,000,000', count: 69, increase: 84599 },
 ];
 
-export function Slide21() {
+const budgetRows = [
+  { label: 'Жилд зарцуулах хөрөнгө', value: 325.4 },
+  { label: '2026.10.01-ээс нэмэгдүүлбэл', value: 81.3 },
+];
+
+const insightTexts: ReactNode[] = [
+  <>2013 оноос өмнөх тэтгэвэр бодох цалингийн дээд хязгаар <strong className="s13b-num-highlight">1.4 сая ₮</strong> байгааг <strong className="s13b-num-highlight">2.4 сая ₮</strong> болгох.</>,
+  'Өндөр цалин хөлснөөс олон жил шимтгэл төлсөн тэтгэвэр авагчид илүү нэмэгдэл очно.',
+  'Бүх тэтгэврийг 1 дүгээр сарын 1-нээс автоматаар индексжүүлнэ.',
+];
+
+const maxIncrease = 310698;
+
+function fmt(value: number) {
+  return value.toLocaleString('en-US');
+}
+
+function AnimatedNumber({
+  value,
+  decimals = 0,
+  suffix = '',
+  duration = 1200,
+}: {
+  value: number;
+  decimals?: number;
+  suffix?: string;
+  duration?: number;
+}) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    let frame = 0;
+    const startedAt = performance.now();
+    const animate = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayValue(value * eased);
+      if (progress < 1) {
+        frame = requestAnimationFrame(animate);
+      }
+    };
+
+    setDisplayValue(0);
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [duration, value]);
+
   return (
-    <div className="w-full h-full relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute left-[76px] right-[76px] top-[152px] h-px bg-white/10" />
-        <div className="absolute left-[76px] right-[76px] bottom-[92px] h-px bg-white/10" />
-        <div className="absolute left-[76px] top-[188px] bottom-[92px] w-px bg-white/10" />
-        <div className="absolute right-[76px] top-[188px] bottom-[92px] w-px bg-white/10" />
-        <div className="absolute left-1/2 top-[188px] bottom-[92px] w-px bg-white/10" />
-        <div className="absolute left-[76px] right-[76px] top-1/2 h-px bg-white/10" />
-        <div className="absolute right-[102px] top-[146px] text-[220px] leading-none font-black text-white/[0.04]">
-          16
-        </div>
-        <div className="absolute left-[14%] top-[24%] w-[380px] h-[380px] rounded-full bg-primary/10 blur-[130px]" />
-        <div className="absolute right-[14%] bottom-[16%] w-[420px] h-[420px] rounded-full bg-chart-3/10 blur-[150px]" />
+    <>
+      {displayValue.toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })}
+      {suffix}
+    </>
+  );
+}
+
+export function Slide21() {
+  const [isTableOpen, setIsTableOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isTableOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsTableOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isTableOpen]);
+
+  return (
+    <div className="s13b-slide size-full relative overflow-hidden">
+      <div className="absolute inset-0">
+        <img src={backgroundImg} alt="" className="size-full object-cover" />
       </div>
 
-      <main className="relative z-10 h-full px-10 pt-8 pb-8 flex flex-col">
-        <header className="mb-6 animate-[fade16_.7s_ease-out_both]">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/45 px-5 py-2 mb-4">
-            <LayoutTemplate className="w-4 h-4 text-primary" />
-            <span className="text-sm text-primary font-black uppercase tracking-[0.22em]">
-              Контентийн төлөвлөгөө
-            </span>
+      <div className="s13b-layout relative size-full px-12 py-8">
+        <section className="s13b-hero">
+          <div className="s13b-kicker">ИТГЭЛЦҮҮР</div>
+          <h1>
+            Цалингийн дээд
+            <span>хязгаар</span>
+          </h1>
+          <div className="s13b-count-card">
+            <span>хамрагдах хүн</span>
+            <strong><AnimatedNumber value={141027} /></strong>
+            <em>Хүний тэтгэвэр нэмэгдэнэ</em>
+          </div>
+          <div className="s13b-count-card s13b-count-card-gold">
+            <span>дундаж нэмэгдэл</span>
+            <strong><AnimatedNumber value={192254} suffix=" ₮" /></strong>
+          </div>
+        </section>
+
+        <section className="s13b-graphic">
+          <div className="s13b-summary-card">
+            <div className="s13b-summary-copy">
+              <h2>2.4 саяас бодох</h2>
+            </div>
+
+            <div className="s13b-main-points">
+              {insightTexts.slice(0, 4).map((text, index) => (
+                <article key={index}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <p>{text}</p>
+                </article>
+              ))}
+            </div>
+
+            <button className="s13b-table-button" type="button" onClick={() => setIsTableOpen(true)}>
+              Хүснэгт харах
+              <span>→</span>
+            </button>
           </div>
 
-          <div className="flex items-end justify-between gap-8">
-            <h1 className="max-w-[1080px] text-[58px] leading-[0.95] font-black tracking-tight text-white" style={{ animation: 'blueGlow 2.5s ease-in-out 0s infinite' }}>
-              ТӨЛӨВЛӨСӨН
-              <br />
-              <span className="text-primary">ҮНДСЭН КОНТЕНТУУД</span>
-            </h1>
-            <div className="rounded-[22px] border border-chart-3/35 bg-[#06163d]/55 px-6 py-4 backdrop-blur-sm">
-              <p className="text-[12px] font-black uppercase tracking-[0.22em] text-chart-3">
-                Бүгд ардаа тохирсон зурагтай байх
-              </p>
+          <div className="s13b-budget-card">
+            <div className="s13b-budget-title">Нэмж шаардагдах төсөв /тэрбум төгрөг/</div>
+            <div className="s13b-budget-grid">
+              {budgetRows.map((row) => (
+                <article key={row.label}>
+                  <span>{row.label}</span>
+                  <strong><AnimatedNumber value={row.value} decimals={1} /></strong>
+                </article>
+              ))}
             </div>
           </div>
-        </header>
+        </section>
+      </div>
 
-        <section className="flex-1 min-h-0 grid grid-cols-2 grid-rows-2 gap-5">
-          {contentCards.map(({ number, title, icon: Icon, accent, items }, index) => (
-            <article
-              key={number}
-              tabIndex={0}
-              className="group relative overflow-hidden rounded-[34px] border border-white/14 bg-white/[0.035] outline-none transition-all duration-500 hover:-translate-y-1.5 hover:border-white/24 hover:bg-white/[0.05] focus-visible:-translate-y-1.5 focus-visible:border-white/24 focus-visible:bg-white/[0.05] animate-[card16_.72s_cubic-bezier(.22,1,.36,1)_both]"
-              style={{ animationDelay: `${0.12 + index * 0.12}s` } as CSSProperties}
+      <AnimatePresence>
+        {isTableOpen && (
+          <motion.div
+            className="s13b-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            onClick={() => setIsTableOpen(false)}
+          >
+            <motion.div
+              className="s13b-modal-panel"
+              initial={{ opacity: 0, y: 36, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 24, scale: 0.97 }}
+              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(event) => event.stopPropagation()}
             >
-              <div className="absolute inset-0 backdrop-blur-[18px]" />
-              <div
-                className="absolute -left-16 top-[-30px] h-36 w-36 rounded-full blur-[72px] transition-transform duration-700 group-hover:scale-125 group-hover:translate-x-4"
-                style={{ background: `${accent}24` }}
-              />
-              <div
-                className="absolute -right-12 bottom-[-28px] h-32 w-32 rounded-full blur-[68px] transition-transform duration-700 group-hover:scale-125 group-hover:-translate-x-3"
-                style={{ background: `${accent}18` }}
-              />
-              <div className="absolute inset-0 bg-[#06163d]/52 transition-colors duration-500 group-hover:bg-[#06163d]/46" />
-              <div
-                className="absolute left-0 top-0 bottom-0 w-[3px] transition-all duration-500 group-hover:w-[6px] focus-visible:w-[6px]"
-                style={{ background: accent, boxShadow: `0 0 18px ${accent}66` }}
-              />
+              <div className="s13b-modal-header">
+                <div>
+                  <span>Дэлгэрэнгүй хүснэгт</span>
+                  <h2>Тэтгэвэр 2.4 саяас бодоход хэдээр нэмэгдэх вэ?</h2>
+                </div>
+                <button type="button" onClick={() => setIsTableOpen(false)} aria-label="Хаах">×</button>
+              </div>
 
-              <div className="relative z-10 h-full p-6 flex flex-col">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <span
-                      className="inline-flex w-12 h-12 rounded-full border items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
-                      style={{ borderColor: `${accent}66`, color: accent, background: 'rgba(255,255,255,0.03)' }}
-                    >
-                      <Icon className="w-5 h-5" />
-                    </span>
-                    <div>
-                      <p className="text-[11px] font-black uppercase tracking-[0.22em]" style={{ color: accent }}>
-                        {number}
-                      </p>
-                      <p className="mt-1 text-[14px] font-black uppercase tracking-[0.18em] text-white/55">
-                        Контент
-                      </p>
-                    </div>
-                  </div>
-
-                  <span
-                    className="h-1.5 w-16 rounded-full flex-shrink-0 transition-all duration-500 group-hover:w-28"
-                    style={{ background: accent, boxShadow: `0 0 20px ${accent}55` }}
-                  />
+              <div className="s13b-table-card s13b-table-card-modal">
+                <div className="s13b-table-head">
+                  <span>Доод хэмжээ</span>
+                  <span>Тэтгэврийн хэмжээ</span>
+                  <span>Тоо</span>
+                  <span>Дундаж нэмэгдэл</span>
                 </div>
 
-                <div className="mt-5">
-                  <h2 className="max-w-[760px] text-[27px] leading-[1.1] font-black text-white">
-                    {title}
-                  </h2>
-                </div>
-
-                <div className="mt-5 flex-1 flex flex-col gap-3">
-                  {items.map((item, itemIndex) => (
-                    <div
-                      key={`${number}-${itemIndex}`}
-                      className="rounded-[22px] border border-white/10 bg-white/[0.035] px-4 py-3 backdrop-blur-md transition-all duration-300 group-hover:translate-x-1 group-hover:bg-white/[0.055]"
+                <div className="s13b-table-body">
+                  {pensionRows.map((row, index) => (
+                    <motion.div
+                      key={`${row.amount}-${row.count}`}
+                      className="s13b-table-row"
+                      initial={{ opacity: 0, x: 18 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.035, duration: 0.28 }}
                     >
-                      <div className="flex items-start gap-3">
-                        <span
-                          className="mt-[9px] h-2.5 w-2.5 rounded-full flex-shrink-0"
-                          style={{ background: accent, boxShadow: `0 0 14px ${accent}55` }}
+                      <span className={index < 2 ? 's13b-row-gold' : ''}>{row.group}</span>
+                      <strong>{row.amount}</strong>
+                      <em><AnimatedNumber value={row.count} duration={900 + index * 35} /></em>
+                      <div className="s13b-increase">
+                        <motion.i
+                          initial={{ width: 0 }}
+                          animate={{ width: `${Math.max(8, (row.increase / maxIncrease) * 100)}%` }}
+                          transition={{ delay: 0.12 + index * 0.035, duration: 0.62, ease: 'easeOut' }}
                         />
-                        <p className="text-[16px] leading-[1.3] font-bold text-white/90">{item}</p>
+                        <b><AnimatedNumber value={row.increase} duration={950 + index * 35} /></b>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
+                  <div className="s13b-table-total">
+                    <span>Бүгд</span>
+                    <strong />
+                    <em><AnimatedNumber value={141027} /></em>
+                    <b><AnimatedNumber value={192254} /></b>
+                  </div>
                 </div>
               </div>
-            </article>
-          ))}
-        </section>
-      </main>
-
-      <style>{`
-        @keyframes fade16 { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes card16 {
-          from { opacity: 0; transform: translateY(22px) scale(.98); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes blueGlow {
-          0%,100% { text-shadow: 0 0 18px rgba(46,197,255,0.35); }
-          50% { text-shadow: 0 0 42px rgba(46,197,255,0.85), 0 0 80px rgba(46,197,255,0.3); }
-        }
-      `}</style>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
