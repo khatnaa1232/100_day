@@ -1,146 +1,278 @@
-import type { CSSProperties } from 'react';
-import { Building2, Gauge, Handshake, ShieldCheck, Unlock } from 'lucide-react';
+import type { CSSProperties, ReactNode } from 'react';
+import { ArrowUpRight, BadgeDollarSign, CheckCircle2, Gem, Landmark, Percent, TrendingDown, TrendingUp } from 'lucide-react';
+import chuluuluvImg from '../../imports/chuluuluv.png';
+import unlockedImg from '../../imports/unlocked.png';
+import oyuTolgoiImg from '../../imports/unlock_1.png';
+import { useCountUp, formatCountUp } from './useCountUp';
+import { LiquidGlass } from './LiquidGlass';
 
-const pillars = [
+const liquidGlassProps = {
+  blur: 2.5,
+  edgeIntensity: 0,
+  rimIntensity: 0,
+  baseIntensity: 0,
+  edgeDistance: 0.05,
+  rimDistance: 0.8,
+  baseDistance: 0.08,
+  cornerBoost: 0,
+  ripple: 0.1,
+  tint: 0,
+  warp: false,
+};
+
+const liquidShadow: CSSProperties = {
+  boxShadow: '0 25px 50px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.10)',
+};
+
+// Inner surfaces stay light so they read as nested controls above the WebGL
+// LiquidGlass panels, which sample and refract the real deck background.
+const glassSoft: CSSProperties = {
+  background: 'linear-gradient(180deg, rgba(6,22,61,0.34), rgba(6,22,61,0.18))',
+  backdropFilter: 'blur(6px) saturate(125%)',
+  WebkitBackdropFilter: 'blur(6px) saturate(125%)',
+  boxShadow: '0 18px 36px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.09)',
+};
+
+function CountUp({
+  value,
+  decimals = 0,
+  delay = 0,
+  duration = 1400,
+}: {
+  value: number;
+  decimals?: number;
+  delay?: number;
+  duration?: number;
+}) {
+  const [display] = useCountUp(value, delay, duration);
+  return <span>{formatCountUp(display, decimals)}</span>;
+}
+
+// Marker-style highlight for the featured numeric figures inside the regular italic body.
+function HL({ children, accent }: { children: ReactNode; accent: string }) {
+  return (
+    <b
+      className="rounded-[5px] px-1.5 py-[1px] font-black not-italic text-white"
+      style={{ background: `${accent}24` }}
+    >
+      {children}
+    </b>
+  );
+}
+
+const impactStats = [
+  { value: 30, suffix: 'их наяд ₮', label: 'төслийн зардал буурав', accent: '#f2b94b', trend: 'down' as const },
+  { value: 22, suffix: 'их наяд ₮', label: 'хүүд төлөх байсан зардал хэмнэгдэв', accent: '#2ec5ff', trend: 'down' as const },
+  { value: 13, suffix: 'их наяд ₮', label: 'Монголын өгөөж нэмэгдэв', accent: '#22c55e', trend: 'up' as const },
+];
+
+type Highlighter = (children: ReactNode) => ReactNode;
+
+const detailPoints: { icon: typeof TrendingDown; accent: string; render: (H: Highlighter) => ReactNode }[] = [
   {
-    letter: 'A',
-    title: 'ИТГЭЛЦЭЛ:',
-    icon: Handshake,
-    color: '#2EC5FF',
-    items: [
-      'Ил тод, тогтмол мэдээллийн урсгал',
-      'Авлигын эсрэг чөлөөлөлт: Ашиг сонирхол, авлигатай тэмцэх дохио',
-      'Нээлттэй шийдвэрүүд',
-    ],
+    icon: TrendingDown,
+    accent: '#f2b94b',
+    render: (H) => <>Менежментийн зардлыг {H('8 орчим их наяд')} төгрөгөөр бууруулж, Монголын талын өгөөжийг {H('5 орчим их наяд')} төгрөгөөр нэмэв.</>,
   },
   {
-    letter: 'B',
-    title: 'ЭДИЙН ЗАСГИЙН ЭРХ ЧӨЛӨӨ',
-    icon: Unlock,
-    color: '#F2B94B',
-    items: [
-      'Бизнес дэх төрийн хүнд суртлын чөдөр тушааг тайлах',
-      'Хөдөлмөр эрхлэх хүслийг дэмжих, жижиг, дунд бизнесийг бодитой дэмжих',
-    ],
+    icon: Percent,
+    accent: '#2ec5ff',
+    render: (H) => <>Зээлийн хүүг буулгаж, хүүнд төлөх байсан {H('22 их наяд')} төгрөгийг хэмнэв. Монголын талын хүртэх өгөөжийг {H('8 орчим их наяд')} төгрөгөөр нэмэв.</>,
   },
   {
-    letter: 'C',
-    title: 'ШУУД МЭДРЭГДЭХ ТӨРИЙН ҮЙЛЧИЛГЭЭ',
-    icon: Gauge,
-    color: '#10B981',
-    items: [
-      'Төрийн үйлчилгээний хурд',
-      'Цахим үйлчилгээний хүртээмж',
-      'Төрийн албаны хариуцлага',
-    ],
+    icon: Gem,
+    accent: '#22c55e',
+    render: (H) => <>Нийт зардлыг {H('30 орчим их наяд')} төгрөгөөр бууруулж, Монголын өгөөжийг {H('13 их наядаар')} нэмэгдүүлэв.</>,
   },
   {
-    letter: 'D',
-    title: 'ТӨРИЙН СИСТЕМИЙН САХИЛГА БАТ',
-    icon: ShieldCheck,
-    color: '#A78BFA',
-    items: [
-      '#Unlock Hub team: Нийслэл, аймаг, сум, дүүрэг, яам, агентлаг бүрийн KPI',
-      '7 хоног тутмын хяналт',
-      'Үргүй зардал, өгөөжгүй ажил, төслүүдийг зогсоох',
-    ],
+    icon: Landmark,
+    accent: '#a78bfa',
+    render: (H) => <>Оюутолгойн зээлийн хүүг буулгах цонх {H('7 жилд')} нээгддэг байсныг {H('3 жил тутамд')} хэлэлцэнэ.</>,
+  },
+  {
+    icon: BadgeDollarSign,
+    accent: '#fb7185',
+    render: (H) => <>Оюутолгойгоос хүртэх ноогдол ашиг цаашилсан {H('2037 он')} биш, наашилж {H('2026 он')} болов.</>,
   },
 ];
 
 export function Slide5() {
   return (
-    <div className="w-full h-full relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute left-1/2 top-[55%] w-[780px] h-[780px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/7 blur-[120px]" />
-      </div>
-
-      <main className="relative z-10 h-full px-9 pt-7 pb-8 flex flex-col">
-        <header className="flex items-end justify-between mb-5 animate-[fadeIn_0.7s_ease-out_both]">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-chart-3/50 bg-chart-3/10 px-5 py-2 mb-3">
-              <Building2 className="w-4 h-4 text-chart-3" />
-              <span className="text-sm text-chart-3 font-black uppercase tracking-[0.22em]">Стратеги</span>
+    <div className="relative h-full w-full overflow-hidden text-white">
+      <main className="relative z-10 flex h-full flex-col px-12 pb-[74px] pt-[46px]">
+        <header className="flex items-start justify-between gap-8">
+          <div className="max-w-[1240px]">
+            <div className="flex items-center gap-4">
+              <img src={chuluuluvImg} alt="Чөлөөлөв" className="h-10 w-auto object-contain" />
+              <span className="h-7 w-px bg-white/18" />
+              <p className="text-[13px] font-black uppercase tracking-[0.24em] text-white/58">Онцлох стратегийн unlock</p>
             </div>
-            <h1 className="text-[62px] leading-none font-black tracking-tight text-white">
-              ЧӨЛӨӨЛӨЛТИЙН 100 ӨДӨР:{' '}<br />
-              <span className="text-chart-3" style={{ animation: 'goldGlow 2.5s ease-in-out infinite' }}>СТРАТЕГИЙН 4 ТУЛГУУР</span>
+            <div className="mt-5 flex items-center gap-4">
+              <span className="flex items-center gap-2.5 rounded-[8px] border border-[#f2b94b]/55 bg-[#f2b94b]/14 px-4 py-2 text-[16px] font-black uppercase tracking-[0.18em] text-[#f2b94b]">
+                <span className="relative block h-5 w-5 flex-shrink-0">
+                  <span
+                    className="absolute inset-0"
+                    style={{
+                      backgroundColor: '#f2b94b',
+                      WebkitMaskImage: `url(${unlockedImg})`,
+                      maskImage: `url(${unlockedImg})`,
+                      WebkitMaskRepeat: 'no-repeat',
+                      maskRepeat: 'no-repeat',
+                      WebkitMaskPosition: 'center',
+                      maskPosition: 'center',
+                      WebkitMaskSize: 'contain',
+                      maskSize: 'contain',
+                    }}
+                    aria-hidden="true"
+                  />
+                </span>
+                #Unlock 1
+              </span>
+              <span className="h-px w-24 bg-gradient-to-r from-[#f2b94b] to-transparent" />
+            </div>
+            <h1 className="mt-5 max-w-[1220px] text-[58px] leading-[0.92] font-black tracking-[-0.05em] text-white">
+              Оюутолгойн өгөөжийг өсгөх,
+              <span className="block text-[#f2b94b]">ноогдол ашгаа авах дуусдаггүй яриаг дуусгав</span>
             </h1>
           </div>
+
+          <div className="h-16 w-[430px]" aria-hidden="true" />
         </header>
 
-        <section className="flex-1 min-h-0 grid grid-cols-[0.4fr_0.6fr] gap-8">
-          <aside className="relative min-h-0">
-            <div className="absolute left-[43%] top-[35%] w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/15 animate-[spin_35s_linear_infinite]" />
-            <div className="absolute left-[43%] top-[35%] w-[410px] h-[410px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-chart-3/25 animate-[spin_24s_linear_reverse_infinite]" />
+        <section className="mt-7 grid min-h-0 flex-1 grid-cols-[1.12fr_0.88fr] gap-7">
+          <LiquidGlass
+            radius={30}
+            className="overflow-hidden border border-white/18"
+            style={liquidShadow}
+            {...liquidGlassProps}
+          >
+            <div className="relative h-full p-7">
+              <div className="absolute inset-y-0 right-0 w-[40%]">
+                <img
+                  src={oyuTolgoiImg}
+                  alt="Оюутолгой"
+                  className="h-full w-full object-cover"
+                  style={{
+                    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, #000 58%)',
+                    maskImage: 'linear-gradient(to right, transparent 0%, #000 58%)',
+                  }}
+                />
+              </div>
+              <div className="absolute left-0 top-0 h-full w-1.5 bg-[#f2b94b]" />
+              <div className="absolute right-8 top-7 text-[140px] leading-none font-black tabular-nums text-white/[0.05]">01</div>
 
-            <div className="absolute left-[43%] top-[35%] w-[350px] h-[350px] -translate-x-1/2 -translate-y-1/2 z-20">
-              <figure className="group relative w-full h-full rounded-full overflow-hidden border-[3px] border-chart-3 shadow-[0_0_50px_rgba(242,185,75,0.28)] bg-[radial-gradient(circle_at_30%_30%,rgba(242,185,75,0.32),transparent_42%),radial-gradient(circle_at_70%_70%,rgba(46,197,255,0.22),transparent_48%),linear-gradient(180deg,rgba(10,24,58,0.98),rgba(6,22,61,0.96))] animate-[hubIn_0.85s_ease-out_both]">
-                <div className="absolute inset-[16%] rounded-full border border-white/12" />
-                <div className="absolute inset-[28%] rounded-full border border-dashed border-chart-3/25" />
-                <figcaption className="absolute inset-x-8 bottom-8 text-center">
-                  <p className="text-[11px] text-chart-3 font-black uppercase tracking-[0.24em]">Стратегийн төв</p>
-                  <p className="mt-1 text-[21px] text-white font-black">Нэгдсэн удирдлага</p>
-                </figcaption>
-              </figure>
-              <div className="absolute inset-[-18px] rounded-full border border-dashed border-chart-3/45 animate-[spin_14s_linear_infinite]" />
-            </div>
+              <div className="relative z-10 flex h-full max-w-[72%] flex-col">
+                <p className="text-[15px] font-black uppercase tracking-[0.22em] text-white/46">Гол үр нөлөө</p>
+                <div className="mt-5 grid grid-cols-3 gap-4">
+                  {impactStats.map((stat, index) => {
+                    const Trend = stat.trend === 'up' ? TrendingUp : TrendingDown;
+                    return (
+                      <div
+                        key={stat.label}
+                        className="relative overflow-hidden rounded-[24px] border p-5"
+                        style={{ borderColor: `${stat.accent}50`, ...glassSoft }}
+                      >
+                        <div className="flex items-center gap-2">
+                          <p className="text-[70px] leading-none font-black tabular-nums tracking-[-0.055em]" style={{ color: stat.accent }}>
+                            <CountUp value={stat.value} delay={120 + index * 80} duration={650} />
+                          </p>
+                          <Trend
+                            className="h-12 w-12 flex-shrink-0"
+                            strokeWidth={2.8}
+                            style={{
+                              color: stat.accent,
+                              animation: `${stat.trend === 'up' ? 's5TrendUp' : 's5TrendDown'} 1.8s ease-in-out ${index * 0.15}s infinite`,
+                            }}
+                          />
+                        </div>
+                        <p className="mt-1 text-[18px] leading-none font-black" style={{ color: stat.accent }}>
+                          {stat.suffix}
+                        </p>
+                        <p className="mt-3 text-[13px] leading-[1.18] font-black uppercase tracking-[0.08em] text-white/60">
+                          {stat.label}
+                        </p>
 
-            <figure className="group absolute left-0 bottom-0 w-[520px] h-[250px] overflow-hidden rounded-[42px] border-2 border-primary/50 z-30 shadow-[0_0_28px_rgba(46,197,255,0.18)] bg-[linear-gradient(135deg,rgba(46,197,255,0.22),transparent_45%),linear-gradient(180deg,rgba(6,22,61,0.98),rgba(6,22,61,0.88))] animate-[imageRise_0.75s_ease-out_0.4s_both]">
-              <div className="absolute -left-10 top-8 h-40 w-40 rounded-full bg-primary/15 blur-3xl" />
-              <div className="absolute right-8 bottom-8 h-20 w-28 rounded-[22px] border border-white/12 bg-white/6" />
-              <figcaption className="absolute left-6 top-1/2 -translate-y-1/2">
-                <p className="text-[11px] text-primary font-black uppercase tracking-[0.22em]">Стратеги → Ажил</p>
-                <p className="mt-1 text-[20px] text-white font-black">Бодит хэрэгжилт</p>
-              </figcaption>
-            </figure>
-
-            <figure className="group absolute right-0 top-1/2 -translate-y-1/2 w-[190px] h-[190px] overflow-hidden rounded-full border-2 border-chart-2/60 z-40 shadow-[0_0_26px_rgba(16,185,129,0.22)] bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.26),transparent_48%),linear-gradient(180deg,rgba(6,22,61,0.98),rgba(6,22,61,0.9))] animate-[imageRise_0.75s_ease-out_0.58s_both]">
-              <div className="absolute inset-[18%] rounded-full border border-white/12" />
-              <figcaption className="absolute inset-x-3 bottom-4 text-center">
-                <p className="text-[10px] text-chart-2 font-black uppercase tracking-[0.18em]">Төрийн үйлчилгээ</p>
-                <p className="mt-1 text-[14px] text-white font-black">Шууд хүртээмж</p>
-              </figcaption>
-            </figure>
-          </aside>
-
-          <div className="self-center grid grid-cols-2 grid-rows-2 gap-4 h-[650px] min-h-0">
-            {pillars.map(({ letter, title, icon: Icon, color, items }, index) => (
-              <article
-                key={letter}
-                tabIndex={0}
-                className="relative min-h-0 rounded-[26px] border border-white/15 bg-[#06163d]/28 px-6 py-5 outline-none animate-[branchIn_0.7s_ease-out_both]"
-                style={{ animationDelay: `${0.12 + index * 0.1}s` } as CSSProperties}
-              >
-                <div className="absolute inset-x-0 bottom-0 h-1.5 rounded-b-[26px]" style={{ backgroundColor: color }} />
-                <div className="flex items-center gap-4">
-                  <div className="relative w-[70px] h-[70px] rounded-2xl border-2 flex items-center justify-center flex-shrink-0" style={{ borderColor: color, backgroundColor: `${color}18`, boxShadow: `0 0 24px ${color}25` }}>
-                    <Icon className="w-9 h-9" style={{ color }} />
-                    <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full text-background text-sm font-black flex items-center justify-center" style={{ backgroundColor: color }}>{letter}</span>
-                  </div>
-                  <h2 className="text-[30px] leading-[1.03] text-white font-black" style={{ textShadow: `0 0 22px ${color}35` }}>{title}</h2>
+                        {/* flowing "rate" bar */}
+                        <div className="absolute inset-x-0 bottom-0 h-[5px] overflow-hidden" style={{ background: `${stat.accent}26` }}>
+                          <span
+                            className="absolute inset-y-0 w-1/2"
+                            style={{
+                              background: `linear-gradient(90deg, transparent, ${stat.accent}, transparent)`,
+                              animation: `s5BarFlow 1.9s linear ${index * 0.25}s infinite`,
+                            }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-                <ul className="mt-4 space-y-2.5">
-                  {items.map((item) => (
-                    <li key={item} className="flex gap-3 text-[21px] leading-[1.18] text-white/90 font-bold">
-                      <span className="mt-[9px] w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
+
+                <div className="mt-auto grid grid-cols-[1fr_260px] gap-5">
+                  <div className="relative overflow-hidden rounded-[24px] border border-white/12 p-5" style={glassSoft}>
+                    <p className="mt-3 text-[27px] leading-[1.05] font-black tracking-[-0.035em] text-white">
+                      Зардал 30 орчим их наяд₮-өөр буурч, өгөөж 13 их наядаар нэмэгдэв.
+                    </p>
+                  </div>
+                  <div className="relative overflow-hidden rounded-[24px] border border-[#22c55e]/38 p-5" style={glassSoft}>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="h-8 w-8 flex-shrink-0 text-[#22c55e]" strokeWidth={2.5} />
+                      <p className="text-[13px] font-black uppercase tracking-[0.16em] text-[#22c55e]">Ногдол ашиг</p>
+                    </div>
+                    <p className="mt-4 text-[34px] leading-[0.96] font-black tracking-[-0.04em] text-white">
+                      2026 оноос шууд авч эхэлнэ
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </LiquidGlass>
+
+          <aside className="flex min-h-0 flex-col gap-4">
+            {detailPoints.map((point, index) => {
+              const Icon = point.icon;
+              const H: Highlighter = (children) => <HL accent={point.accent}>{children}</HL>;
+              return (
+                <LiquidGlass
+                  key={index}
+                  radius={26}
+                  className="min-h-0 flex-1 overflow-hidden border"
+                  style={{ borderColor: `${point.accent}42`, ...liquidShadow }}
+                  {...liquidGlassProps}
+                >
+                  <div className="relative flex h-full items-start gap-4 p-5">
+                    <span
+                      className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-[10px] border"
+                      style={{ borderColor: `${point.accent}66`, backgroundColor: `${point.accent}16`, color: point.accent }}
+                    >
+                      <Icon className="h-6 w-6" strokeWidth={2.5} />
+                    </span>
+                    <p className="text-[19px] leading-[1.34] font-normal italic tracking-[-0.015em] text-white/82">
+                      {point.render(H)}
+                    </p>
+                    <ArrowUpRight
+                      className="absolute right-4 top-4 h-5 w-5 opacity-45"
+                      style={{ color: point.accent }}
+                    />
+                  </div>
+                </LiquidGlass>
+              );
+            })}
+          </aside>
         </section>
       </main>
 
       <style>{`
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes hubIn { from { opacity: 0; transform: scale(.8) rotate(-8deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
-        @keyframes branchIn { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes imageRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes goldGlow {
-          0%, 100% { text-shadow: 0 0 22px rgba(242,185,75,0.35); }
-          50%       { text-shadow: 0 0 48px rgba(242,185,75,0.9), 0 0 90px rgba(242,185,75,0.35); }
+        @keyframes s5TrendUp {
+          0%, 100% { transform: translateY(3px); }
+          50% { transform: translateY(-4px); }
+        }
+        @keyframes s5TrendDown {
+          0%, 100% { transform: translateY(-3px); }
+          50% { transform: translateY(4px); }
+        }
+        @keyframes s5BarFlow {
+          from { transform: translateX(-110%); }
+          to { transform: translateX(210%); }
         }
       `}</style>
     </div>

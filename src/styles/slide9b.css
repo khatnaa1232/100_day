@@ -1,0 +1,303 @@
+/* ============================================================
+   Slide9b — Pension reform / social insurance coverage
+   ============================================================ */
+
+@keyframes s9b-title-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes s9b-card-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 26px, 0) scale(0.975);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes s9b-drift {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(24px, -18px, 0) scale(1.07);
+  }
+}
+
+@keyframes s9b-border-flow {
+  from {
+    background-position: 0% center;
+  }
+
+  to {
+    background-position: 220% center;
+  }
+}
+
+.s9b-slide {
+  color: #f8fafc;
+  isolation: isolate;
+}
+
+.s9b-layout {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 30px;
+  padding: 76px 86px 136px;
+}
+
+.s9b-title-panel {
+  position: relative;
+  align-self: end;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: s9b-title-in 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.s9b-kicker {
+  width: fit-content;
+  margin-bottom: 14px;
+  padding: 8px 18px;
+  border: 1px solid rgba(250, 204, 21, 0.52);
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(250, 204, 21, 0.22), rgba(0, 209, 178, 0.14));
+  color: #fef3c7;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 16px rgba(250, 204, 21, 0.42);
+  box-shadow:
+    0 0 28px rgba(250, 204, 21, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.s9b-title-panel h1 {
+  margin: 0;
+  max-width: 1260px;
+  color: #ffffff;
+  font-size: clamp(3rem, 3.2cqw, 6.25rem);
+  font-weight: 1000;
+  line-height: 0.98;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-wrap: balance;
+  text-shadow: 0 22px 58px rgba(0, 0, 0, 0.55);
+}
+
+.s9b-title-panel h1 span {
+  display: block;
+  margin-top: 8px;
+  background: linear-gradient(90deg, #ffffff 0%, #f5c915 43%, #00d1b2 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  animation: s9b-border-flow 5.8s linear 800ms infinite;
+}
+
+.s9b-title-rule {
+  width: 190px;
+  height: 6px;
+  margin: 24px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f5c915, #00d1b2, #4a76d1);
+  box-shadow: 0 0 28px rgba(0, 209, 178, 0.32);
+}
+
+.s9b-title-panel p {
+  margin: 0;
+  max-width: 360px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.28;
+}
+
+.s9b-card-grid {
+  align-self: stretch;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(190px, 220px));
+  align-content: start;
+  gap: 22px;
+}
+
+.s9b-card {
+  --accent: #7c3aed;
+  --accent-soft: rgba(124, 58, 237, 0.2);
+  --accent-wash: rgba(124, 58, 237, 0.12);
+  position: relative;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  opacity: 0;
+  outline: none;
+  animation: s9b-card-in 680ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+
+
+.s9b-card-shell {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 66px minmax(0, 1fr);
+  align-items: center;
+  gap: 17px;
+  padding: 16px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(6, 22, 61, 0.34), rgba(6, 22, 61, 0.18));
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(2.5px) saturate(115%);
+  -webkit-backdrop-filter: blur(2.5px) saturate(115%);
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background 260ms ease;
+}
+
+
+.s9b-icon-wrap {
+  position: relative;
+  z-index: 1;
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent), white 24%);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--accent), transparent 84%);
+  color: color-mix(in srgb, var(--accent), white 26%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(2.5px) saturate(115%);
+  -webkit-backdrop-filter: blur(2.5px) saturate(115%);
+}
+
+.s9b-icon-wrap svg {
+  width: 34px;
+  height: 34px;
+  stroke-width: 3;
+}
+
+.s9b-card-copy {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+}
+
+.s9b-card-copy h2 {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: clamp(1.2rem, 1.5cqw, 1.72rem);
+  font-weight: 1000;
+  line-height: 1.05;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.s9b-card-copy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: clamp(0.9rem, 1.05cqw, 1.16rem);
+  font-weight: 760;
+  line-height: 1.2;
+}
+
+.s9b-card-green .s9b-card-copy h2 {
+  font-size: clamp(1.08rem, 1.36cqw, 1.54rem);
+}
+
+.s9b-card-green .s9b-card-copy p {
+  font-size: clamp(0.84rem, 0.96cqw, 1.06rem);
+  line-height: 1.18;
+}
+
+.s9b-card-glow {
+  position: absolute;
+  inset: auto -70px -84px auto;
+  width: 230px;
+  height: 230px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--accent), white 28%), transparent 62%);
+  filter: blur(20px);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.s9b-card:hover .s9b-card-shell,
+.s9b-card:focus-visible .s9b-card-shell {
+  transform: translateY(-8px) scale(1.012);
+  border-color: color-mix(in srgb, var(--accent), white 20%);
+  box-shadow:
+    0 30px 62px rgba(0, 0, 0, 0.32),
+    0 0 32px var(--accent-soft),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.s9b-card:hover .s9b-card-shell::before,
+.s9b-card:focus-visible .s9b-card-shell::before {
+  opacity: 0.54;
+  transform: rotate(8deg) scale(1.04);
+}
+
+@media (max-width: 1200px) {
+  .s9b-layout {
+    gap: 22px;
+    padding-inline: 58px;
+  }
+
+  .s9b-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(170px, 200px));
+  }
+
+  .s9b-card-shell {
+    padding: 14px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .s9b-title-panel,
+  .s9b-card,
+  .s9b-pulse,
+  .s9b-title-panel h1 span,
+  .s9b-card:hover .s9b-card-shell::before,
+  .s9b-card:focus-visible .s9b-card-shell::before {
+    animation: none;
+  }
+
+  .s9b-title-panel,
+  .s9b-card {
+    opacity: 1;
+    transform: none;
+  }
+}

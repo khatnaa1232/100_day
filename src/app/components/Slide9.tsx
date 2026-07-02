@@ -1,348 +1,232 @@
-import type { CSSProperties } from 'react';
-import stampImg from '../../imports/chuluuluv.png';
+import type { CSSProperties, ReactNode } from 'react';
 import {
-  Activity,
+  ArrowRight,
   BadgeCheck,
-  CheckCircle2,
+  Ban,
+  Building2,
   ClipboardCheck,
-  Flag,
-  Search,
+  FileCheck2,
+  GitBranch,
+  Handshake,
+  LockOpen,
   ShieldCheck,
-  Sparkles,
-  Target,
-  TimerReset,
-  Zap,
 } from 'lucide-react';
+import { LiquidGlass } from './LiquidGlass';
 
-const obstacles = [
-  'Төрийн хүнд суртал, авилга',
-  'Төр ба иргэний харилцаан дахь ойлгомжгүй дүрэм журмууд',
-  'Бизнес эрхлэгчдэд учирдаг дарамт',
-  'Эм, эмийн бүтээгдэхүүний чанар, хяналт',
-  'Татварын дарамт',
-  'Тэтгэврийн шударга бус тогтолцоо',
-  'Үр ашиггүй төрийн өмчит компаниуд',
-  'Иргэд, хүүхдийн амь нас, эрүүл мэнд хамгаалагдаагүй орчин',
-  'Ногоон хөгжлийн зогсонги байдал',
-  'Эрчим хүчний хомсдол',
+const liquidGlassProps = {
+  blur: 2.5,
+  edgeIntensity: 0,
+  rimIntensity: 0,
+  baseIntensity: 0,
+  edgeDistance: 0.05,
+  rimDistance: 0.8,
+  baseDistance: 0.08,
+  cornerBoost: 0,
+  ripple: 0.1,
+  tint: 0,
+  warp: false,
+};
+
+const liquidShadow: CSSProperties = {
+  boxShadow: '0 25px 50px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.10)',
+};
+
+const glassSoft: CSSProperties = {
+  background: 'linear-gradient(180deg, rgba(6,22,61,0.34), rgba(6,22,61,0.18))',
+  backdropFilter: 'blur(6px) saturate(125%)',
+  WebkitBackdropFilter: 'blur(6px) saturate(125%)',
+  boxShadow: '0 18px 36px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.09)',
+};
+
+type PermitBlock = {
+  title: string;
+  accent: string;
+  icon: typeof LockOpen;
+  items: ReactNode[];
+  metrics: { value: string; label: string; icon: typeof BadgeCheck; accent: string }[];
+};
+
+const blocks: PermitBlock[] = [
+  {
+    title: 'Эхлэх, авах, сунгах нөхцөл',
+    accent: '#22c55e',
+    icon: LockOpen,
+    items: [
+      <>ЗӨВШӨӨРӨЛ АВАХАД ТАТВАР, НДШ-Н ШИМТГЭЛИЙН ӨРГҮЙ БАЙХ ШААРДЛАГА ТАВИХГҮЙ</>,
+      <>ЭРСДЭЛ БАГАТАЙ БИЗНЕС МЭДЭГДЭЭД ШУУД ЭХЭЛНЭ</>,
+      <>
+        ТУСГАЙ ЗӨВШӨӨРӨЛ 10 ЖИЛ
+        <span className="block text-white/70">ЭНГИЙН ЗӨВШӨӨРӨЛ 5 ЖИЛ</span>
+      </>,
+      <>ЗӨРЧИЛГҮЙ БОЛ ЗӨВШӨӨРЛӨӨ 2 ӨДӨРТ ШУУД СУНГУУЛНА</>,
+    ],
+    metrics: [
+      { value: '10', label: 'жил тусгай зөвшөөрөл', icon: FileCheck2, accent: '#22c55e' },
+      { value: '5', label: 'жил энгийн зөвшөөрөл', icon: BadgeCheck, accent: '#2ec5ff' },
+      { value: '2', label: 'өдөрт сунгуулна', icon: ArrowRight, accent: '#f2b94b' },
+    ],
+  },
+  {
+    title: 'Зөвшөөрлийн төрөл өөрчлөгдөв',
+    accent: '#f2b94b',
+    icon: GitBranch,
+    items: [
+      <>Эрчим хүч, санхүү, даатгал, үнэт цаас, боловсролын салбарын 41 ЗӨВШӨӨРӨЛ ХЭРЭГГҮЙ БОЛОВ</>,
+      <>
+        24 ТУСГАЙ ЗӨВШӨӨРЛӨӨС ЭНГИЙН ЗӨВШӨӨРӨЛ
+        <span className="block text-white/70">7 ТУСГАЙ, ЭНГИЙН ЗӨВШӨӨРӨЛ МЭДЭГДЭЛД БОЛОВ</span>
+      </>,
+    ],
+    metrics: [
+      { value: '41', label: 'зөвшөөрөл хэрэггүй болов', icon: Ban, accent: '#fb7185' },
+      { value: '24', label: 'тусгай → энгийн', icon: GitBranch, accent: '#f2b94b' },
+      { value: '7', label: 'мэдэгдэлд болов', icon: ClipboardCheck, accent: '#2ec5ff' },
+    ],
+  },
+  {
+    title: 'Олголт ба салбарын зохицуулалт',
+    accent: '#2ec5ff',
+    icon: Handshake,
+    items: [
+      <>
+        МЭРГЭЖЛИЙН НЭГДСЭН ХОЛБООД 120 ЗӨВШӨӨРӨЛ ОЛГОНО
+        <span className="mt-2 block text-white/70">
+          Байгаль орчин, санхүү, барилга, зам, тээвэр, боловсрол, уул уурхай, харилцаа холбоо, ХХАА, эрүүл мэнд, эрчим хүчний салбарууд
+        </span>
+      </>,
+      <>
+        НЭГ ТӨРЛИЙН ҮЙЛ АЖИЛЛАГААНЫ 3-4 ТӨРЛИЙН ТУСГАЙ ЗӨВШӨӨРЛӨӨС ЧӨЛӨӨЛӨВ
+        <span className="mt-2 block text-white/70">
+          Жишээ нь: 16 давхар барилга барихын тулд 3-4 жилийн туршид 3 тусгай зөвшөөрөл авахаас чөлөөлөв.
+        </span>
+      </>,
+    ],
+    metrics: [
+      { value: '120', label: 'зөвшөөрөл олгоно', icon: Handshake, accent: '#2ec5ff' },
+      { value: '3-4', label: 'тусгай зөвшөөрлөөс', icon: Building2, accent: '#a78bfa' },
+      { value: '16', label: 'давхар барилгын жишээ', icon: ShieldCheck, accent: '#22c55e' },
+    ],
+  },
 ];
 
-const firstLiberations = [
-  'ААН-д хийх төлөвлөгөөт хяналт, шалгалтаас чөлөөлөв',
-  'Зарим бизнес эхлүүлхэд шаарддаг зөвшөөрлөөс чөлөөлөв',
-  'Төрийн албан хаагчдыг тайлангаас чөлөөлөв',
-  'Эмч, багш нарын цалингийн будилаанаас чөлөөлөв',
-  'Авилгын эсрэг цахим платформ хөгжүүлэлт.',
-  'Туулын хурдны зам төслийг зогсоов',
-  'Түлшний үнийг бууруулж чадлаа',
-  'Том төслүүдийг гацаанаас чөлөөллөө.',
-  'Ногоон хөгжлийн чөлөөлөлт',
-  'Ипотекийн зээлийн төрөлжүүлэв.',
-];
+function MetricCard({ value, label, icon: Icon, accent, index }: PermitBlock['metrics'][number] & { index: number }) {
+  return (
+    <div
+      className="relative overflow-hidden rounded-[18px] border px-4 py-3"
+      style={{
+        borderColor: `${accent}42`,
+        animation: `s9Rise .62s cubic-bezier(.22,1,.36,1) ${0.16 + index * 0.06}s both`,
+        ...glassSoft,
+      }}
+    >
+      <div className="flex items-center gap-2">
+        <Icon className="h-5 w-5 flex-shrink-0" style={{ color: accent }} strokeWidth={2.5} />
+        <p className="text-[34px] leading-none font-black tracking-[-0.05em] tabular-nums" style={{ color: accent }}>
+          {value}
+        </p>
+      </div>
+      <p className="mt-2 text-[10.5px] leading-[1.05] font-black uppercase tracking-[0.1em] text-white/46">{label}</p>
+    </div>
+  );
+}
 
-const solutionItems = [
-  'Салбар хоорондын уялдаа',
-  'Хариуцлагын тогтолцоо: Хариуцлага тооцсон шийдвэрүүд.',
-  'Иргэдэд харагдахуйц бодит өөрчлөлт, шийдвэрийн жагсаалт',
-];
+function PermitPanel({ block, index }: { block: PermitBlock; index: number }) {
+  const Icon = block.icon;
+  return (
+    <LiquidGlass
+      radius={28}
+      className="group min-h-0 overflow-hidden border p-5 transition duration-300 hover:-translate-y-1"
+      style={{
+        borderColor: `${block.accent}52`,
+        animation: `s9Panel .72s cubic-bezier(.22,1,.36,1) ${0.1 + index * 0.1}s both`,
+        ...liquidShadow,
+      }}
+      {...liquidGlassProps}
+    >
+      <div className="relative flex h-full flex-col">
+        <div className="absolute -right-14 -top-16 h-48 w-48 rounded-full opacity-20 blur-3xl transition duration-300 group-hover:opacity-35" style={{ backgroundColor: block.accent }} />
+        <div className="relative flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[12px] font-black uppercase tracking-[0.18em]" style={{ color: block.accent }}>
+              Зөвшөөрлийн хуулийн шинэчлэл:
+            </p>
+            <h2 className="mt-2 text-[25px] leading-[1.02] font-black tracking-[-0.03em] text-white">{block.title}</h2>
+          </div>
+          <span
+            className="grid h-14 w-14 flex-shrink-0 place-items-center rounded-[12px] border"
+            style={{ borderColor: `${block.accent}66`, backgroundColor: `${block.accent}16`, color: block.accent }}
+          >
+            <Icon className="h-7 w-7" strokeWidth={2.5} />
+          </span>
+        </div>
 
-const validationItems = [
-  'Үр дүн, иргэдийн стори теллинг',
-  'Мега авлигаас мега бүтээн байгуулалт руу: Туулын хурдны зам,',
-  'Тэтгэврийн тогтолцооны шударга шинэчлэл: Хүний хөдөлмөрийн үр шим',
-  'Татварын багц шинэчлэл: 4 онцлох өөрчлөлт',
-  'Чөлөөлөлтийн жилийн төлөвлөгөө: Онцлох 5 асуудал',
-];
+        <div className="relative mt-4 grid grid-cols-3 gap-3">
+          {block.metrics.map((metric, metricIndex) => (
+            <MetricCard key={metric.label} {...metric} index={metricIndex + index * 3} />
+          ))}
+        </div>
 
-const roadPhases = [
-  { day: '30', range: '01–30', label: 'ДҮН ШИНЖИЛГЭЭ БА ХУРДАН ЯЛАЛТ', color: '#2EC5FF', icon: Search, pos: '11%' },
-  { day: '60', range: '30–60', label: 'АСУУДАЛ–ШИЙДЭЛ', color: '#F2B94B', icon: Activity, pos: '50%' },
-  { day: '100', range: '60–100', label: 'БАТАЛГААЖУУЛАЛТ', color: '#10B981', icon: Flag, pos: '89%' },
-] as const;
+        <div className="relative mt-4 space-y-3">
+          {block.items.map((item, itemIndex) => (
+            <article
+              key={itemIndex}
+              className="flex gap-3 rounded-[18px] border p-3.5 transition duration-300 hover:bg-white/[0.07]"
+              style={{ borderColor: `${block.accent}30`, ...glassSoft }}
+            >
+              <span className="mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full" style={{ backgroundColor: block.accent }} />
+              <p className="text-[16.5px] leading-[1.2] font-black text-white/84">{item}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </LiquidGlass>
+  );
+}
 
 export function Slide9() {
   return (
-    <div className="w-full h-full relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,.25) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.25) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
-        />
-        <div className="absolute left-0 top-0 h-[3px] w-full bg-gradient-to-r from-[#2EC5FF] via-[#F2B94B] to-[#10B981]" />
-        <div className="absolute top-[28%] left-[18%] w-[560px] h-[380px] rounded-full bg-[#2EC5FF]/5 blur-[140px]" />
-        <div className="absolute bottom-[18%] right-[12%] w-[480px] h-[360px] rounded-full bg-[#10B981]/5 blur-[120px]" />
-        <div className="absolute top-[55%] left-[48%] w-[380px] h-[280px] rounded-full bg-[#F2B94B]/4 blur-[100px]" />
+    <div className="relative h-full w-full overflow-hidden text-white">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-[8%] top-[4%] h-[360px] w-[560px] rounded-full bg-[#22c55e]/12 blur-[150px]" />
+        <div className="absolute right-[2%] top-[12%] h-[420px] w-[520px] rounded-full bg-[#f2b94b]/12 blur-[170px]" />
+        <div className="absolute bottom-[-12%] left-[34%] h-[360px] w-[720px] rounded-full bg-[#2ec5ff]/10 blur-[170px]" />
+        <div className="absolute right-8 top-7 text-[140px] leading-none font-black tabular-nums text-white/[0.04]">05</div>
       </div>
 
-      <main className="relative z-10 h-full w-full px-10 pt-7 pb-8 flex flex-col">
-        {/* Header */}
-        <header className="flex-shrink-0 mb-0 animate-[fade9_.7s_ease-out_both]">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#2EC5FF]/40 bg-[#2EC5FF]/8 px-5 py-2 mb-2">
-            <TimerReset className="w-4 h-4 text-[#2EC5FF]" />
-            <span className="text-sm text-[#2EC5FF] font-black uppercase tracking-[0.22em]">
-              "ЧӨЛӨӨЛӨЛТИЙН{' '}100 ӨДӨР"-ИЙН БҮТЭЦ
+      <main className="relative z-10 flex h-full flex-col px-12 pb-[54px] pt-[44px]">
+        <header className="animate-[s9Header_.72s_cubic-bezier(.22,1,.36,1)_both]">
+          <div className="flex items-center gap-4">
+            <span className="rounded-[8px] border border-[#f2b94b]/55 bg-[#f2b94b]/14 px-4 py-2 text-[16px] font-black uppercase tracking-[0.18em] text-[#f2b94b]">
+              Слайд 9
             </span>
+            <span className="h-px w-24 bg-gradient-to-r from-[#f2b94b] to-transparent" />
           </div>
-          <h1 className="text-[52px] leading-none text-white font-black tracking-tight" style={{ animation: 'blueGlow 2.5s ease-in-out 0s infinite' }}>
-            Хэрэгжилтийн
-            <span className="text-[#2EC5FF] drop-shadow-[0_0_22px_rgba(46,197,255,0.55)]"> замын </span>
-            зураг
+          <h1 className="mt-5 max-w-[1260px] text-[54px] leading-[0.95] font-black tracking-[-0.045em] text-white">
+            ЗӨВШӨӨРӨЛ НЭРТЭЙ
+            <span className="block text-[#f2b94b]">ХОРИГЛОЛТООС ЧӨЛӨӨЛӨВ</span>
           </h1>
         </header>
 
-        {/* Roadmap + Grid — vertically centered in remaining space */}
-        <div className="flex-1 flex flex-col justify-center gap-3">
-
-          {/* ── Modern Roadmap ── */}
-          <div className="relative flex-shrink-0 h-52">
-            {/* Glow behind track */}
-            <div className="absolute top-1/2 left-[7%] right-[7%] -translate-y-1/2 h-8 rounded-full bg-gradient-to-r from-[#2EC5FF]/18 via-[#F2B94B]/18 to-[#10B981]/18 blur-xl" />
-            {/* Track base */}
-            <div className="absolute top-1/2 left-[7%] right-[7%] -translate-y-1/2 h-[6px] rounded-full bg-white/[0.07]" />
-            {/* Animated fill */}
-            <div className="absolute top-1/2 left-[7%] right-[7%] -translate-y-1/2 h-[6px] rounded-full overflow-hidden">
-              <div className="h-full w-full origin-left bg-gradient-to-r from-[#2EC5FF] via-[#F2B94B] to-[#10B981] animate-[timeline9_2.2s_ease-out_.3s_both]" />
-            </div>
-
-            {/* Milestone nodes */}
-            {roadPhases.map(({ day, range, label, color, icon: Icon, pos }, i) => (
-              <div
-                key={day}
-                className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center animate-[phase9_.7s_ease-out_both]"
-                style={{ left: pos, animationDelay: `${0.28 + i * 0.18}s` } as CSSProperties}
-              >
-                {/* Range badge — above */}
-                <div className="absolute bottom-full mb-3">
-                  <span
-                    className="block text-[11px] font-black tracking-[0.15em] px-3 py-[5px] rounded-full whitespace-nowrap"
-                    style={{ color, background: `${color}12`, border: `1px solid ${color}32` }}
-                  >
-                    {range}
-                  </span>
-                </div>
-
-                {/* Pulse rings */}
-                <div
-                  className="absolute rounded-full opacity-35"
-                  style={{ width: 108, height: 108, background: `${color}10`, animationDelay: `${i * 0.9}s` }}
-                />
-                <div
-                  className="absolute rounded-full opacity-35"
-                  style={{ width: 88, height: 88, background: `${color}18`, animationDelay: `${i * 0.9 + 1.1}s` }}
-                />
-
-                {/* Circle */}
-                <div
-                  className="relative z-10 flex items-center justify-center rounded-full flex-shrink-0"
-                  style={{
-                    width: 66,
-                    height: 66,
-                    background: `linear-gradient(135deg, ${color}, ${color}bb)`,
-                    boxShadow: `0 0 0 3px ${color}38, 0 0 38px ${color}65, 0 8px 20px rgba(0,0,0,.5)`,
-                  }}
-                >
-                  <Icon className="w-8 h-8" style={{ color: '#040d1a' }} />
-                </div>
-
-                {/* Labels — below */}
-                <div className="absolute top-full mt-2.5 text-center" style={{ width: 148 }}>
-                  <p className="text-[13px] font-black tracking-[0.1em] leading-none" style={{ color }}>
-                    {day} ХОНОГ
-                  </p>
-                  <p className="text-[11px] text-white/45 font-semibold mt-1 leading-tight">{label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* ── Content Grid ── */}
-          <section className="grid grid-cols-[1.5fr_0.72fr_0.9fr] gap-3 items-start">
-
-            {/* Phase 1 */}
-            <article className="flex flex-col rounded-2xl overflow-hidden border border-[#2EC5FF]/22 bg-white/[0.04] backdrop-blur-md animate-[panel9_.7s_ease-out_both]">
-              <div
-                className="flex-shrink-0 px-5 py-3 border-b border-[#2EC5FF]/12"
-                style={{ background: 'linear-gradient(to right, rgba(46,197,255,0.09), rgba(46,197,255,0.03))' }}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(46,197,255,0.12)', border: '1px solid rgba(46,197,255,0.32)' }}
-                  >
-                    <Zap className="w-5 h-5 text-[#2EC5FF]" />
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-[#2EC5FF] font-black uppercase tracking-[0.2em]">
-                      Эхний 30 хоног: ДҮН ШИНЖИЛГЭЭ БА ХУРДАН ЯЛАЛТ
-                    </p>
-                    <h2 className="text-[16px] leading-tight text-white font-black">
-                      Саадыг тодорхойлж, эхний чөлөөлөлтүүдийг хэрэгжүүлнэ
-                    </h2>
-                  </div>
-                </div>
-              </div>
-
-              {/* Two-column lists */}
-              <div className="grid grid-cols-2 divide-x divide-white/[0.06]">
-                {/* Obstacles */}
-                <div className="px-4 pt-3 pb-3">
-                  <div className="flex items-center gap-2 mb-2 flex-shrink-0">
-                    <Target className="w-3.5 h-3.5 text-rose-400 flex-shrink-0" />
-                    <h3 className="text-[12px] text-white font-black leading-tight">
-                      Ерөнхий сайдын онилсон 10 гол саад юу байв?
-                    </h3>
-                  </div>
-                  <ol className="divide-y divide-white/[0.08]">
-                    {obstacles.map((item, i) => (
-                      <li key={item} className="flex items-start gap-2 py-[7px]">
-                        <span
-                          className="mt-[3px] w-[18px] h-[18px] rounded flex items-center justify-center flex-shrink-0 text-[9px] font-black"
-                          style={{
-                            color: '#ef5a67',
-                            background: 'rgba(239,90,103,0.1)',
-                            border: '1px solid rgba(239,90,103,0.26)',
-                          }}
-                        >
-                          {i + 1}
-                        </span>
-                        <span className="text-[15px] leading-[1.22] text-white/82 font-semibold">{item}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-
-                {/* Liberations */}
-                <div className="px-4 pt-3 pb-3">
-                  <div className="flex items-center gap-2 mb-2 flex-shrink-0">
-                    <Sparkles className="w-3.5 h-3.5 text-[#2EC5FF] flex-shrink-0" />
-                    <h3 className="text-[12px] text-white font-black">Эхний 10 чөлөөлөлт</h3>
-                  </div>
-                  <ol className="divide-y divide-white/[0.08]">
-                    {firstLiberations.map((item, i) => (
-                      <li key={item} className="flex items-start gap-2 py-[7px]">
-                        <span
-                          className="mt-[3px] w-[18px] h-[18px] rounded flex items-center justify-center flex-shrink-0 text-[9px] font-black"
-                          style={{
-                            color: '#2EC5FF',
-                            background: 'rgba(46,197,255,0.1)',
-                            border: '1px solid rgba(46,197,255,0.26)',
-                          }}
-                        >
-                          {i + 1}
-                        </span>
-                        <span className="text-[15px] leading-[1.22] text-white/82 font-semibold">{item}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              </div>
-            </article>
-
-            {/* Phase 2 */}
-            <article className="flex flex-col rounded-2xl overflow-hidden border border-[#F2B94B]/22 bg-white/[0.04] backdrop-blur-md animate-[panel9_.7s_ease-out_.13s_both]">
-              <div
-                className="flex-shrink-0 px-5 py-3 border-b border-[#F2B94B]/12"
-                style={{ background: 'linear-gradient(to right, rgba(242,185,75,0.09), rgba(242,185,75,0.03))' }}
-              >
-                <div
-                  className="w-9 h-9 rounded-xl flex items-center justify-center mb-2"
-                  style={{ background: 'rgba(242,185,75,0.12)', border: '1px solid rgba(242,185,75,0.32)' }}
-                >
-                  <Activity className="w-5 h-5 text-[#F2B94B]" />
-                </div>
-                <h2 className="text-[17px] leading-[1.18] text-white font-black">
-                  30-60 дахь өдөр: АСУУДАЛ-ШИЙДЭЛ
-                </h2>
-              </div>
-
-              <div className="flex flex-col divide-y divide-white/[0.09]">
-                {solutionItems.map((item, i) => (
-                  <div
-                    key={item}
-                    className="flex items-start gap-3 px-5 py-5 animate-[itemIn9_.5s_ease-out_both]"
-                    style={{ animationDelay: `${0.4 + i * 0.12}s` } as CSSProperties}
-                  >
-                    <div
-                      className="mt-[9px] flex-shrink-0 rounded-full"
-                      style={{
-                        width: 11,
-                        height: 11,
-                        background: '#F2B94B',
-                        boxShadow: '0 0 14px rgba(242,185,75,0.9)',
-                      }}
-                    />
-                    <p className="text-[18px] leading-[1.38] text-white/92 font-bold">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </article>
-
-            {/* Phase 3 */}
-            <article className="flex flex-col rounded-2xl overflow-hidden border border-[#10B981]/22 bg-white/[0.04] backdrop-blur-md animate-[panel9_.7s_ease-out_.26s_both]">
-              <div
-                className="flex-shrink-0 px-5 py-3 border-b border-[#10B981]/12"
-                style={{ background: 'linear-gradient(to right, rgba(16,185,129,0.09), rgba(16,185,129,0.03))' }}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.32)' }}
-                  >
-                    <ShieldCheck className="w-5 h-5 text-[#10B981]" />
-                  </div>
-                  <img src={stampImg} alt="Чөлөөлөв" className="h-9 object-contain animate-[stampImpact9_0.98s_cubic-bezier(.2,.9,.24,1.2)_0.24s_both]" />
-                </div>
-                <h2 className="text-[17px] leading-[1.18] text-white font-black">
-                  60–100 дахь өдөр: БАТАЛГААЖУУЛАЛТ
-                </h2>
-              </div>
-
-              <div className="flex flex-col divide-y divide-white/[0.09]">
-                {validationItems.map((item, i) => (
-                  <div
-                    key={item}
-                    className="flex items-start gap-3 px-4 py-4 animate-[itemIn9_.5s_ease-out_both]"
-                    style={{ animationDelay: `${0.45 + i * 0.09}s` } as CSSProperties}
-                  >
-                    <CheckCircle2 className="mt-[3px] w-[18px] h-[18px] text-[#10B981] flex-shrink-0" />
-                    <p className="text-[18px] leading-[1.28] text-white/85 font-semibold">{item}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div
-                className="flex-shrink-0 mx-4 mb-3 rounded-xl px-4 py-2.5 flex items-center gap-3"
-                style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.22)' }}
-              >
-                <ClipboardCheck className="w-4 h-4 text-[#10B981] flex-shrink-0" />
-                <p className="text-[13px] leading-tight text-white/60 font-semibold">
-                  100 өдрийн үр дүнг баталгаажуулж, жилийн төлөвлөгөөнд шилжүүлнэ
-                </p>
-              </div>
-            </article>
-          </section>
-        </div>{/* end centering wrapper */}
+        <section className="mt-7 grid min-h-0 flex-1 grid-cols-3 gap-6">
+          {blocks.map((block, index) => (
+            <PermitPanel key={block.title} block={block} index={index} />
+          ))}
+        </section>
       </main>
 
       <style>{`
-        @keyframes fade9     { from { opacity: 0 }                               to { opacity: 1 } }
-        @keyframes panel9    { from { opacity: 0; transform: translateY(18px) }  to { opacity: 1; transform: translateY(0) } }
-        @keyframes phase9    { from { opacity: 0; transform: scale(0.72) }       to { opacity: 1; transform: scale(1) } }
-        @keyframes itemIn9   { from { opacity: 0; transform: translateX(-8px) }  to { opacity: 1; transform: translateX(0) } }
-        @keyframes timeline9 { from { transform: scaleX(0) }                     to { transform: scaleX(1) } }
-        @keyframes pulse9    { 0%   { transform: scale(1); opacity: 0.65 }       100% { transform: scale(1.85); opacity: 0 } }
-        @keyframes stampImpact9 {
-          0% { opacity: 0; transform: translateY(-25px) scale(1.58) rotate(-12deg); filter: blur(6px); }
-          56% { opacity: 1; transform: translateY(6px) scale(.87) rotate(-5deg); filter: blur(0); }
-          80% { transform: translateY(-2px) scale(1.05) rotate(-7deg); }
-          100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+        @keyframes s9Header {
+          from { opacity: 0; transform: translateY(18px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes blueGlow  { 0%,100% { text-shadow: 0 0 18px rgba(46,197,255,0.35); } 50% { text-shadow: 0 0 42px rgba(46,197,255,0.85), 0 0 80px rgba(46,197,255,0.3); } }
+        @keyframes s9Panel {
+          from { opacity: 0; transform: translateY(20px) scale(.985); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes s9Rise {
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
       `}</style>
     </div>
   );

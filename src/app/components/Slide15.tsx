@@ -1,154 +1,238 @@
 import type { CSSProperties } from 'react';
 import {
-  BadgeCheck,
-  BriefcaseBusiness,
-  MessageSquareQuote,
-  UsersRound,
+  AlertTriangle,
+  ArrowRight,
+  BarChart3,
+  Factory,
+  Globe2,
+  Landmark,
+  Percent,
+  Scale,
+  ShieldAlert,
+  Target,
+  TrendingUp,
 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { LiquidGlass } from './LiquidGlass';
 
-const angleSections = [
+type Signal = {
+  label: string;
+  value: string;
+  note: string;
+  heat: number;
+  icon: LucideIcon;
+};
+
+type Issue = {
+  title: string;
+  label: string;
+  icon: LucideIcon;
+};
+
+const signals: Signal[] = [
   {
-    title: 'Өнгөрсөн хугацаанд хийж бүтээсэн ажлуудыг “чөлөөлөх” гэж нэрлэсний учир шалтгаан.',
-    bullets: ['Ерөнхий сайдын богино ярилцлага', 'Үзэл санааг онцолсон зохиогчийн нийтлэл'],
-    icon: MessageSquareQuote,
-    accent: '#2EC5FF',
+    label: 'ДНБ-ийн өсөлт',
+    value: '6.8%',
+    note: 'Бодит ДНБ 34.3 их наяд төгрөгт хүрч өссөн.',
+    heat: 68,
+    icon: TrendingUp,
   },
   {
-    title: 'Чөлөөлөлтийн өмнөх ба дараах орчныг салбар бүрээр харуулах.',
-    bullets: ['Постерууд', '“Гэрчүүдийн” яриа: олон зүйл ойлгомжтой болсон'],
-    icon: UsersRound,
-    accent: '#10B981',
+    label: 'Өрсөлдөх чадвар',
+    value: '65 → 58',
+    note: '2027 онд 7 эрэмбээр ахиулах зорилттой.',
+    heat: 58,
+    icon: Target,
   },
   {
-    title: '“Чөлөө Учрал” гэсэн буулт',
-    text: 'Эрх чөлөө, хориглолтоос чөлөөлөх гэсэн утга нь бизнесийн орчинд эерэг, санаанд үлдэх хэллэг болж бууж байна.',
-    bullets: ['Сошиал хөгжүүлэлт', 'Инфлүинсэр агуулгын цуврал'],
-    icon: BriefcaseBusiness,
-    accent: '#F2B94B',
+    label: 'Гадаад худалдаа',
+    value: '27.0 тэрбум $',
+    note: 'Тэнцэл 4.4 тэрбум ам.долларын ашигтай.',
+    heat: 86,
+    icon: Globe2,
+  },
+  {
+    label: 'Инфляц',
+    value: '7.5%',
+    note: '2026 оны 3 дугаар сард 7.4 хувь.',
+    heat: 45,
+    icon: Percent,
   },
 ];
 
-const imageWall = [
-  { title: 'Ерөнхий сайдын богино ярилцлага', accent: '#2EC5FF' },
-  { title: 'Зохиогчийн онцлох нийтлэл', accent: '#F2B94B' },
-  { title: 'Постерын цуврал', accent: '#10B981' },
-  { title: 'Салбарын өмнө, дараах кейс', accent: '#A78BFA' },
-  { title: 'Гэрчүүдийн богино яриа', accent: '#2EC5FF' },
-  { title: 'Сошиал хөгжүүлэлт', accent: '#F97316' },
-  { title: 'Инфлүинсэр агуулга', accent: '#10B981' },
-  { title: 'Нэгдсэн мессежийн багц', accent: '#F43F5E' },
-  { title: 'Reel, short контент', accent: '#38BDF8' },
+const issues: Issue[] = [
+  { title: 'Уул уурхай, нүүрсний эдийн засаг', label: 'Хамаарал', icon: Factory },
+  { title: 'Хувийн хэвшилтэйгээ өрсөлддөг төр', label: 'Төрийн оролцоо', icon: Landmark },
+  { title: 'Татварын хүнд ачаа дарамт', label: 'Дарамт', icon: BarChart3 },
+  { title: 'Хүнд суртал, хууль бус ашиг сонирхол', label: 'Саад', icon: ShieldAlert },
+  { title: 'Хөрөнгө оруулагчдын алдарсан итгэл', label: 'Итгэл', icon: AlertTriangle },
 ];
 
 export function Slide15() {
   return (
-    <div className="w-full h-full relative overflow-hidden">
+    <div className="relative h-full w-full overflow-hidden text-white">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute left-[80px] right-[80px] top-[148px] h-px bg-white/10" />
-        <div className="absolute left-[82px] top-[188px] bottom-[96px] w-px bg-white/10" />
-        <div className="absolute right-[82px] top-[188px] bottom-[96px] w-px bg-white/10" />
-        <div className="absolute left-[48%] top-[188px] bottom-[96px] w-px bg-white/10" />
-        <div className="absolute right-[112px] top-[150px] text-[220px] leading-none font-black text-white/[0.04]">15</div>
+        <div className="absolute left-[54px] top-[226px] h-[540px] w-[540px] rounded-full border border-primary/[0.08]" />
+        <div className="absolute left-[132px] top-[304px] h-[384px] w-[384px] rounded-full border border-primary/[0.08]" />
+        <div className="absolute right-[-100px] bottom-[-170px] text-[420px] leading-none font-black text-white/[0.018]">74</div>
       </div>
 
-      <main className="relative z-10 h-full px-10 pt-8 pb-10 flex flex-col">
-        <header className="mb-6 animate-[fade15_.7s_ease-out_both]">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/45 px-5 py-2 mb-4">
-            <BadgeCheck className="w-4 h-4 text-primary" />
-            <span className="text-sm text-primary font-black uppercase tracking-[0.22em]">Контентийн төлөвлөгөө</span>
+      <main className="relative z-10 flex h-full flex-col px-12 pb-14 pt-9">
+        <header className="flex items-start justify-between gap-12 animate-[ecoFade_.65s_ease-out_both]">
+          <div className="flex items-start gap-5">
+            <span className="grid h-14 w-14 flex-shrink-0 place-items-center border-2 border-primary text-[24px] font-black text-primary">I</span>
+            <div>
+              <h1 className="hundred-days-glow text-[54px] leading-[0.9] font-black tracking-[-0.045em]">
+                ЭДИЙН ЗАСГИЙН
+                <br />
+                <span className="text-primary">ЧӨЛӨӨЛӨЛТ</span>
+              </h1>
+              <p className="mt-4 max-w-[1060px] text-[16px] leading-[1.18] font-black uppercase tracking-[0.035em] text-white/62">
+                Түүхий эд гаргадаг түүхийг өөрчилж, үнэ цэн, өртөг ашиг нэмж боловсруулах үйлдвэрүүдийн үүдийг нээнэ
+              </p>
+            </div>
           </div>
-          <h1 className="max-w-[1240px] text-[56px] leading-[0.96] font-black tracking-tight text-white" style={{ animation: 'blueGlow 2.5s ease-in-out 0s infinite' }}>
-            <span className="text-primary">ХЭРЭГЖИЛТ</span>
-            <br />
-          </h1>
+
+          <div className="w-[360px] flex-shrink-0 pt-3 pr-[270px]" />
         </header>
 
-        <section className="flex-1 min-h-0 flex items-center gap-8">
-          <article className="w-[42%] flex-shrink-0 self-center animate-[left15_.78s_ease-out_both]">
-            <div className="pb-5 border-b border-white/12">
-              <p className="text-[13px] text-primary font-black uppercase tracking-[0.22em]">Өнцгүүд</p>
+        <section className="mt-8 grid min-h-0 flex-1 grid-cols-[38%_minmax(0,1fr)] gap-9">
+          <aside className="flex min-h-0 flex-col pr-4 animate-[ecoLeft_.75s_ease-out_.08s_both]">
+            <p
+              className="border-y border-primary/32 py-5 text-[29px] leading-[1.1] font-black italic text-primary"
+              style={{ fontFamily: 'Lora, serif' }}
+            >
+              “Төрийн зуршлаас хувийн хэвшил үү”
+            </p>
+
+            <div className="mt-7 flex items-start gap-3">
+              <span className="mt-1 h-9 w-2 bg-primary" />
+              <div>
+                <h2 className="mt-1 text-[31px] leading-[1.02] font-black tracking-[-0.02em]">
+                  Монгол Улсын эдийн засгийн нөхцөл байдал
+                </h2>
+              </div>
             </div>
 
-            <div className="mt-6 flex flex-col gap-6 justify-center">
-              {angleSections.map(({ title, text, bullets, icon: Icon, accent }, index) => (
+            <LiquidGlass
+              radius={18}
+              className="relative mt-9 flex-1 min-h-0 overflow-hidden border border-primary/28 p-6"
+              style={{ boxShadow: '0 25px 50px rgba(0,0,0,0.22)' }}
+            >
+              <div className="flex h-full flex-col">
+                <div className="flex items-center gap-4">
+                  <span className="grid h-12 w-12 flex-shrink-0 place-items-center border border-primary/65 text-primary">
+                    <Scale className="h-6 w-6" strokeWidth={2.6} />
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-[12px] font-black uppercase tracking-[0.2em] text-primary">гол хэмжүүр</p>
+                    <h3 className="mt-1 text-[24px] leading-[1.02] font-black">Эдийн засгийн эрх чөлөө</h3>
+                  </div>
+                </div>
+
+                <div className="mt-auto">
+                  <p className="text-[76px] leading-[0.82] font-black tracking-[-0.06em] tabular-nums">74/176</p>
+                  <div className="mt-4 h-[5px] bg-white/12">
+                    <div className="h-full w-[42%] origin-left bg-primary animate-[ecoBar_1s_ease-out_.35s_both]" />
+                  </div>
+                  <p className="mt-4 max-w-[430px] text-[15px] leading-[1.18] font-bold text-white/64">
+                    2025 онд эдийн засгийн эрх чөлөөний индексээр 74 дүгээр байрт эрэмбэлэгдсэн.
+                  </p>
+                </div>
+
+                <div className="mt-auto border-t border-white/14 pt-4">
+                  <p className="text-[12px] font-black uppercase tracking-[0.2em] text-primary">Хувийн хэвшлийн орон зай</p>
+                  <div className="mt-2 flex items-center gap-3">
+                    <span className="text-[38px] leading-none font-black tracking-[-0.04em] text-white">76.2%</span>
+                    <ArrowRight className="h-6 w-6 text-primary" strokeWidth={3} />
+                    <span className="text-[38px] leading-none font-black tracking-[-0.04em] text-primary">79%</span>
+                  </div>
+                </div>
+              </div>
+            </LiquidGlass>
+          </aside>
+
+          <section className="flex min-w-0 min-h-0 flex-col animate-[ecoMap_.75s_ease-out_.14s_both]">
+            <div className="mt-6 grid min-h-0 min-w-0 flex-1 grid-cols-[minmax(0,1fr)_minmax(0,1fr)] gap-4">
+              {signals.map(({ label, value, note, heat, icon: Icon }, index) => (
+                <LiquidGlass
+                  key={label}
+                  radius={16}
+                  className="signal-tile relative min-w-0 overflow-hidden border border-white/14 bg-[#06163d]/42 p-6"
+                  style={
+                    {
+                      '--heat': `${heat}%`,
+                      '--delay': `${0.24 + index * 0.08}s`,
+                      boxShadow: '0 22px 44px rgba(0,0,0,0.18)',
+                    } as CSSProperties
+                  }
+                >
+                  <span className="absolute inset-y-0 left-0 w-[var(--heat)] origin-left bg-primary/[0.055] animate-[ecoBar_1.1s_ease-out_both] [animation-delay:var(--delay)]" />
+                  <div className="relative z-10 flex h-full flex-col">
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="grid h-12 w-12 flex-shrink-0 place-items-center border border-primary/45 text-primary">
+                        <Icon className="h-6 w-6" strokeWidth={2.55} />
+                      </span>
+                    </div>
+                    <div className="mt-auto min-w-0">
+                      <p className="text-[25px] leading-[1.02] font-black tracking-[-0.01em]">{label}</p>
+                      <p className="mt-3 break-words text-[46px] leading-[0.9] font-black tracking-[-0.045em] text-primary tabular-nums">{value}</p>
+                      <div className="mt-5 h-[6px] bg-white/10">
+                        <div className="h-full w-[var(--heat)] origin-left bg-primary animate-[ecoBar_.9s_ease-out_both]" />
+                      </div>
+                      <p className="mt-4 text-[17px] leading-[1.22] font-bold text-white/58">{note}</p>
+                    </div>
+                  </div>
+                </LiquidGlass>
+              ))}
+            </div>
+          </section>
+        </section>
+
+        <LiquidGlass radius={14} className="mt-7 overflow-hidden border border-white/14 animate-[ecoIssueWrap_.7s_ease-out_.2s_both]">
+          <div className="grid h-full grid-cols-[150px_1fr]">
+            <div className="flex items-center justify-center border-r border-white/14">
+              <div className="text-center">
+                <h3 className="mt-1 text-[29px] leading-none font-black">Асуудал</h3>
+              </div>
+            </div>
+            <div className="grid min-w-0 grid-cols-5">
+              {issues.map(({ title, label, icon: Icon }, index) => (
                 <article
                   key={title}
-                  tabIndex={0}
-                  className="relative pl-16 pr-4 outline-none animate-[section15_.62s_ease-out_both]"
-                  style={{ animationDelay: `${0.14 + index * 0.12}s` } as CSSProperties}
+                  className="min-h-[112px] min-w-0 border-r border-white/12 px-5 py-4 last:border-r-0 animate-[ecoIssue_.55s_ease-out_both]"
+                  style={{ animationDelay: `${0.34 + index * 0.07}s` } as CSSProperties}
                 >
-                  <span className="absolute left-0 top-0 w-11 h-11 rounded-full border flex items-center justify-center" style={{ borderColor: `${accent}65`, color: accent }}>
-                    <Icon className="w-5 h-5" />
-                  </span>
-                  <span className="absolute left-[54px] top-[20px] right-0 h-px bg-white/10" />
-                  <h3 className="text-[28px] leading-[1.04] text-white font-black">{title}</h3>
-                  <p className="mt-2 text-[17px] leading-[1.3] text-white/72 font-bold">{text}</p>
-                  <div className="mt-4 flex flex-col gap-2">
-                    {bullets.map((bullet) => (
-                      <div key={bullet} className="flex items-start gap-3">
-                        <span className="mt-[9px] w-2 h-2 rounded-full flex-shrink-0" style={{ background: accent }} />
-                        <p className="text-[16px] leading-[1.28] text-white/68 font-bold">{bullet}</p>
-                      </div>
-                    ))}
+                  <div className="flex items-center justify-between">
+                    <span className="text-[13px] font-black tabular-nums text-white/38">{String(index + 1).padStart(2, '0')}</span>
+                    <Icon className="h-5 w-5 text-primary/80" strokeWidth={2.5} />
                   </div>
+                  <p className="mt-3 text-[11px] font-black uppercase tracking-[0.16em] text-primary/70">{label}</p>
+                  <p className="mt-2 text-[16px] leading-[1.1] font-black text-white/88">{title}</p>
                 </article>
               ))}
             </div>
-
-          </article>
-
-          <article className="flex-1 min-h-0 self-center animate-[right15_.82s_ease-out_both]">
-            <div className="relative h-[690px]">
-              <div className="absolute inset-0">
-                {[0, 1, 2].map((row) => (
-                  <div key={`row-${row}`} className="absolute left-0 right-0 h-px bg-white/10" style={{ top: `${row * 33.333 + 33.333}%` }} />
-                ))}
-                {[0, 1].map((col) => (
-                  <div key={`col-${col}`} className="absolute top-0 bottom-0 w-px bg-white/10" style={{ left: `${col * 33.333 + 33.333}%` }} />
-                ))}
-              </div>
-
-              <div className="grid grid-cols-3 grid-rows-3 h-full">
-                {imageWall.map(({ title, accent }, index) => (
-                  <figure
-                    key={title}
-                    className="relative overflow-hidden border border-white/8 animate-[tileReveal15_0.55s_cubic-bezier(.22,1,.36,1)_both]"
-                    style={{ animationDelay: `${0.1 + index * 0.07}s` } as CSSProperties}
-                  >
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.08),transparent_58%),linear-gradient(180deg,rgba(6,22,61,0.92),rgba(6,22,61,0.78))]" />
-                    <div className="absolute left-5 top-5 h-12 w-12 rounded-2xl border border-white/12 bg-white/6" style={{ boxShadow: `0 0 24px ${accent}25` }}>
-                      <div className="h-full w-full rounded-2xl" style={{ background: `linear-gradient(135deg, ${accent} 0%, transparent 140%)`, opacity: 0.85 }} />
-                    </div>
-                    <div className="absolute inset-x-5 bottom-5">
-                      <div className="mb-3 h-[3px] w-14 rounded-full" style={{ backgroundColor: accent }} />
-                      <p className="text-[22px] leading-[1.08] font-black text-white">{title}</p>
-                    </div>
-                  </figure>
-                ))}
-              </div>
-            </div>
-          </article>
-        </section>
+          </div>
+        </LiquidGlass>
       </main>
 
       <style>{`
-        @keyframes fade15 { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes left15 { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes right15 { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes section15 { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes rise15 { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes tileReveal15 {
-          0% { opacity: 0; transform: scale(.88); }
-          60% { opacity: 1; transform: scale(1.03); }
-          100% { opacity: 1; transform: scale(1); }
+        @keyframes ecoFade { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes ecoLeft { from { opacity: 0; transform: translateX(-18px) } to { opacity: 1; transform: translateX(0) } }
+        @keyframes ecoMap { from { opacity: 0; transform: translateX(22px) } to { opacity: 1; transform: translateX(0) } }
+        @keyframes ecoIssue { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: translateY(0) } }
+        @keyframes ecoIssueWrap { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: translateY(0) } }
+        @keyframes ecoRule { from { transform: scaleY(0); transform-origin: top } to { transform: scaleY(1); transform-origin: top } }
+        @keyframes ecoBar { from { transform: scaleX(0); transform-origin: left } to { transform: scaleX(1); transform-origin: left } }
+        .signal-tile {
+          animation: ecoIssue .58s ease-out both;
+          animation-delay: var(--delay);
+          transition: transform .22s ease, border-color .22s ease, background-color .22s ease;
         }
-        @keyframes blueGlow {
-          0%,100% { text-shadow: 0 0 18px rgba(46,197,255,0.35); }
-          50% { text-shadow: 0 0 42px rgba(46,197,255,0.85), 0 0 80px rgba(46,197,255,0.3); }
-        }
-        @keyframes goldGlow15 {
-          0%, 100% { text-shadow: 0 0 18px rgba(242,185,75,0.28); }
-          50% { text-shadow: 0 0 40px rgba(242,185,75,0.72), 0 0 88px rgba(46,197,255,0.18); }
+        .signal-tile:hover {
+          transform: translateY(-4px);
+          border-color: rgba(46, 197, 255, .48);
+          background-color: rgba(6, 22, 61, .62);
         }
       `}</style>
     </div>

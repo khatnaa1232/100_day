@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { CSSProperties } from 'react';
-import { ChevronLeft, ChevronRight, Maximize2, Minimize2, LayoutGrid, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2, Minimize2, LayoutGrid } from 'lucide-react';
 import { Slide1 } from './components/Slide1';
 import { Slide2 } from './components/Slide2';
 import { Slide3 } from './components/Slide3';
@@ -18,13 +18,21 @@ import { Slide14 } from './components/Slide14';
 import { Slide15 } from './components/Slide15';
 import { Slide16 } from './components/Slide16';
 import { Slide17 } from './components/Slide17';
+import { Slide18 } from './components/Slide18';
+import { Slide19 } from './components/Slide19';
+import { Slide20 } from './components/Slide20';
+import { Slide21 } from './components/Slide21';
+import { Slide22 } from './components/Slide22';
+import { Slide23 } from './components/Slide23';
+import { Slide24 } from './components/Slide24';
+import { Slide25 } from './components/Slide25';
 import bgImage from '../imports/background.jpg';
+import calendarBg from '../imports/calendar_background.png';
 import chuluulyImg from '../imports/chuluuly.png';
 import slide1HeroImg from '../imports/slide_1.png';
-import slide2HeroImg from '../imports/slide_2.png';
 import slide3HeroImg from '../imports/slide_3.png';
 
-const PRELOAD_IMAGES = [slide1HeroImg, slide2HeroImg, slide3HeroImg];
+const PRELOAD_IMAGES = [slide1HeroImg, slide3HeroImg];
 
 const AUTO_LOOP_INTERVAL = 15_000;
 const LANDSCAPE_CANVAS = { width: 1920, height: 1028 };
@@ -32,25 +40,47 @@ const PORTRAIT_CANVAS = { width: 864, height: 1028 };
 const CHULUULY_ASPECT_RATIO = 7388 / 1398;
 const MORPH_DURATION_MS = 720;
 const MORPH_PAGE_MS = 620;
-const MORPH_LOGO_FROM = {
-  left: (LANDSCAPE_CANVAS.width - 88 * CHULUULY_ASPECT_RATIO) / 2,
-  top: 330,
-  width: 88 * CHULUULY_ASPECT_RATIO,
-  height: 88,
-};
 const MORPH_LOGO_TO = {
   left: LANDSCAPE_CANVAS.width - 40 - 56 * CHULUULY_ASPECT_RATIO,
   top: 32,
   width: 56 * CHULUULY_ASPECT_RATIO,
   height: 56,
 };
-const MORPH_LOGO_17 = {
+const MORPH_LOGO_LAST = {
   left: (LANDSCAPE_CANVAS.width - 100 * CHULUULY_ASPECT_RATIO) / 2,
   top: 298,
   width: 100 * CHULUULY_ASPECT_RATIO,
   height: 100,
 };
-type MorphTransition = 'logo12' | 'logo1617' | null;
+type MorphTransition = 'logo1617' | null;
+
+const SLIDE_THUMBNAILS = [
+  { title: '100 өдөр', subtitle: 'Unlock', accent: '#f59e0b' },
+  { title: 'Ерөнхий сайдын мессеж', subtitle: 'Итгэл + хурд', accent: '#2ec5ff' },
+  { title: 'Хүнд суртлын хана', subtitle: 'Хүсэл хяссан түүхээ', accent: '#f2b94b' },
+  { title: '100 чөлөөлөлт', subtitle: '100 өдөр', accent: '#2ec5ff' },
+  { title: 'Оюутолгой unlock', subtitle: 'Өгөөж, ногдол ашиг', accent: '#f2b94b' },
+  { title: 'Unlock 2-5', subtitle: 'Эхний багц', accent: '#2ec5ff' },
+  { title: 'Unlock 6-9', subtitle: 'Grid багц', accent: '#a78bfa' },
+  { title: 'Unlock 10-12', subtitle: 'Grid багц', accent: '#10b981' },
+  { title: '4 зам', subtitle: 'Үндэсний санаачилга', accent: '#22c55e' },
+  { title: 'Эдийн засгийн чөлөөлөлт', subtitle: 'Signal map', accent: '#fb7185' },
+  { title: '4 зам', subtitle: 'Чөлөөлье санаачилга', accent: '#25d46f' },
+  { title: '4 зарчим', subtitle: 'Эрх чөлөөт эдийн засаг', accent: '#2ec5ff' },
+  { title: 'Боловсролын салбар', subtitle: 'Гэрт ойрхон сургууль', accent: '#f5b632' },
+  { title: 'Илүү олон жил төлбөл', subtitle: 'Илүү өндөр тэтгэвэртэй', accent: '#22c55e' },
+  { title: 'Баталгаат тэтгэвэр', subtitle: 'Шинэ баталгаа', accent: '#22c55e' },
+  { title: 'Цалингийн дээд хязгаар', subtitle: '2.4 саяас бодох', accent: '#f2b94b' },
+  { title: 'Тэтгэврийн шинэчлэл', subtitle: 'Бүр олуулаа даатгуул', accent: '#2bdc75' },
+  { title: 'Олон давхаргат тогтолцоо', subtitle: '3 давхарга · 3 эх үүсвэр', accent: '#f5b632' },
+  { title: 'Бизнес, эдийн засгийн чөлөөлөлт', subtitle: 'Unlock 2–5 · 8 · 10 hero', accent: '#a78bfa' },
+  { title: 'Хүн, салбар, ирээдүйн чөлөөлөлт', subtitle: 'Unlock 6 · 7 hero · 9 · 11 · 12', accent: '#38bdf8' },
+  { title: 'Slide 21', subtitle: 'Агуулга нэмэх', accent: '#2ec5ff' },
+  { title: 'Slide 22', subtitle: 'Агуулга нэмэх', accent: '#2ec5ff' },
+  { title: 'Slide 23', subtitle: 'Агуулга нэмэх', accent: '#2ec5ff' },
+  { title: 'Slide 24', subtitle: 'Агуулга нэмэх', accent: '#2ec5ff' },
+  { title: 'Баярлалаа', subtitle: 'Анхаарал хандуулсанд', accent: '#2ec5ff' },
+];
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -90,17 +120,24 @@ export default function App() {
     Slide15,
     Slide16,
     Slide17,
+    Slide18,
+    Slide19,
+    Slide20,
+    Slide21,
+    Slide22,
+    Slide23,
+    Slide24,
+    Slide25,
   ];
   const CurrentSlideComponent = slides[currentSlide];
   const ExitingSlideComponent = exitingSlide !== null ? slides[exitingSlide] : null;
-  // Show corner logo on slides 2–16 (indices 1–15), except during logo morphs that take over rendering
+  const isPageMorphing = exitingSlide !== null || morphTransition !== null;
+  // Show corner logo on slides 2–24 (indices 1–23), except during the
+  // logo1617 morph that takes over rendering
   const showCornerLogo =
     currentSlide >= 1 &&
-    currentSlide <= 15 &&
-    !(
-      (currentSlide === 1 && morphTransition === 'logo12') ||
-      (currentSlide === 15 && morphTransition === 'logo1617')
-    );
+    currentSlide <= 23 &&
+    !(currentSlide === 23 && morphTransition === 'logo1617');
   const isPortraitSlide = false;
   const canvas = isPortraitSlide ? PORTRAIT_CANVAS : LANDSCAPE_CANVAS;
   const rawCanvasScale = Math.min(
@@ -141,9 +178,7 @@ export default function App() {
 
     // Logo morphs
     let nextMorph: MorphTransition = null;
-    if (fromSlide === 0 && targetSlide === 1) {
-      nextMorph = 'logo12';
-    } else if (fromSlide === 15 && targetSlide === 16) {
+    if (fromSlide === 23 && targetSlide === 24) {
       nextMorph = 'logo1617';
     }
     setMorphTransition(nextMorph);
@@ -216,22 +251,45 @@ export default function App() {
     return () => document.removeEventListener('fullscreenchange', onFsChange);
   }, [startAutoLoop, stopAutoLoop]);
 
-  // Keyboard navigation — also handles presentation remotes (PageDown/PageUp)
+  // Keyboard navigation — also covers presentation remotes/clickers, which emulate
+  // a range of different keys depending on brand (PageDown/PageUp, Space, ./, , <>).
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      const goNext = e.key === 'ArrowRight' || e.key === 'PageDown';
-      const goPrev = e.key === 'ArrowLeft' || e.key === 'PageUp';
+      const key = e.key.toLowerCase();
+      if (isGridView) {
+        if (e.key === 'Escape' || key === 'g') { setIsGridView(false); }
+        return;
+      }
+      const goNext = e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ' || e.key === '.' || e.key === '>';
+      const goPrev = e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === 'Backspace' || e.key === ',' || e.key === '<';
       if (goNext) { e.preventDefault(); nextSlide(); if (autoLoop) { stopAutoLoop(); startAutoLoop(); } }
       if (goPrev) { e.preventDefault(); prevSlide(); if (autoLoop) { stopAutoLoop(); startAutoLoop(); } }
-      if (e.key === 'F5' || ((e.metaKey || e.ctrlKey) && e.key === 'f')) { e.preventDefault(); toggleFullscreen(); }
-      if ((e.metaKey || e.ctrlKey) && e.key === 'g') { e.preventDefault(); toggleGridView(); }
-      if (e.key === 'Escape') {
-        if (isGridView) { setIsGridView(false); return; }
-        if (isFullscreen) { document.exitFullscreen().catch(() => { }); }
-      }
+      if (e.key === 'F5' || ((e.metaKey || e.ctrlKey) && key === 'f')) { e.preventDefault(); toggleFullscreen(); }
+      if ((e.metaKey || e.ctrlKey) && key === 'g') { e.preventDefault(); toggleGridView(); }
+      if (e.key === 'Escape' && isFullscreen) { document.exitFullscreen().catch(() => { }); }
     };
+
+    // Touch swipe — for tablet / touch-screen remotes
+    let touchStartX = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+    };
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isGridView) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) < 50) return; // ignore tiny taps
+      if (dx < 0) { nextSlide(); } else { prevSlide(); }
+      if (autoLoop) { stopAutoLoop(); startAutoLoop(); }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
   }, [nextSlide, prevSlide, toggleFullscreen, toggleGridView, autoLoop, stopAutoLoop, startAutoLoop, isFullscreen, isGridView]);
 
   useEffect(() => () => {
@@ -275,10 +333,18 @@ export default function App() {
   return (
     <div
       ref={containerRef}
-      className="w-full h-screen overflow-hidden bg-cover bg-center bg-no-repeat"
+      className={`w-full h-screen overflow-hidden bg-cover bg-center bg-no-repeat${isPageMorphing ? ' deck-morphing' : ''}`}
       style={{ backgroundImage: isPortraitSlide ? undefined : `url(${bgImage})`, backgroundColor: '#06163d' }}
     >
       <div className="w-full h-full relative">
+        {/* Fullscreen calendar backdrop for the gallery slide (index 3) — covers the
+            letterbox bars around the scaled canvas so background.jpg never shows through. */}
+        {currentSlide === 3 && (
+          <div className="absolute inset-0 pointer-events-none">
+            <img src={calendarBg} alt="" aria-hidden="true" className="h-full w-full scale-105 object-cover blur-[7px]" />
+            <div className="absolute inset-0 bg-[#06163d]/88" />
+          </div>
+        )}
         <div
           className="absolute left-1/2 top-1/2 overflow-hidden"
           style={{
@@ -302,9 +368,8 @@ export default function App() {
           {/* Current slide — morph in */}
           <div
             key={`slide-${currentSlide}`}
-            className={`absolute inset-0 animate-[morphPageIn_600ms_cubic-bezier(.22,1,.36,1)_both] ${
-              morphTransition === 'logo1617' && currentSlide === 16 ? 'morphing-logo1617' : ''
-            }`}
+            className={`absolute inset-0 animate-[morphPageIn_600ms_cubic-bezier(.22,1,.36,1)_both] ${morphTransition === 'logo1617' && currentSlide === 24 ? 'morphing-logo1617' : ''
+              }`}
             style={{ willChange: 'transform, opacity' }}
           >
             <CurrentSlideComponent />
@@ -318,25 +383,11 @@ export default function App() {
               className={`absolute right-10 top-8 z-30 h-14 max-w-[320px] object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]${currentSlide !== 1 ? ' animate-[cornerLogoIn_.6s_ease-out_both]' : ''}`}
             />
           )}
-          {morphTransition === 'logo12' && (
-            <img
-              src={chuluulyImg}
-              alt="Чөлүүлье"
-              className="absolute z-40 object-contain pointer-events-none animate-[slide1ToSlide2Morph_.72s_cubic-bezier(.22,1,.36,1)_both]"
-              style={{
-                left: `${MORPH_LOGO_FROM.left}px`,
-                top: `${MORPH_LOGO_FROM.top}px`,
-                width: `${MORPH_LOGO_FROM.width}px`,
-                height: `${MORPH_LOGO_FROM.height}px`,
-                filter: 'drop-shadow(0 10px 28px rgba(0,0,0,0.35))',
-              }}
-            />
-          )}
           {morphTransition === 'logo1617' && (
             <img
               src={chuluulyImg}
               alt="Чөлүүлье"
-              className="absolute z-40 object-contain pointer-events-none animate-[slide16ToSlide17Morph_.72s_cubic-bezier(.22,1,.36,1)_both]"
+              className="absolute z-40 object-contain pointer-events-none animate-[slideLastMorph_.72s_cubic-bezier(.22,1,.36,1)_both]"
               style={{
                 left: `${MORPH_LOGO_TO.left}px`,
                 top: `${MORPH_LOGO_TO.top}px`,
@@ -349,8 +400,14 @@ export default function App() {
         </div>
 
         <style>{`
-          .morphing-logo1617 .slide17-center-logo {
+          .morphing-logo1617 .slide25-center-logo {
             opacity: 0;
+          }
+          .liquid-glass-canvas {
+            transition: opacity 120ms ease;
+          }
+          .deck-morphing .liquid-glass-canvas {
+            opacity: 0 !important;
           }
           @keyframes morphPageIn {
             from { opacity: 0; transform: scale(1.03) translateZ(0); }
@@ -364,29 +421,7 @@ export default function App() {
             from { opacity: 0; transform: translateX(-34px); }
             to { opacity: 1; transform: translateX(0); }
           }
-          @keyframes slide1ToSlide2Morph {
-            0% {
-              left: ${MORPH_LOGO_FROM.left}px;
-              top: ${MORPH_LOGO_FROM.top}px;
-              width: ${MORPH_LOGO_FROM.width}px;
-              height: ${MORPH_LOGO_FROM.height}px;
-              opacity: 1;
-              filter: blur(0px) drop-shadow(0 12px 32px rgba(0,0,0,0.38));
-            }
-            60% {
-              opacity: 0.98;
-              filter: blur(0px) drop-shadow(0 10px 26px rgba(0,0,0,0.34));
-            }
-            100% {
-              left: ${MORPH_LOGO_TO.left}px;
-              top: ${MORPH_LOGO_TO.top}px;
-              width: ${MORPH_LOGO_TO.width}px;
-              height: ${MORPH_LOGO_TO.height}px;
-              opacity: 1;
-              filter: blur(0px) drop-shadow(0 8px 24px rgba(0,0,0,0.35));
-            }
-          }
-          @keyframes slide16ToSlide17Morph {
+          @keyframes slideLastMorph {
             0% {
               left: ${MORPH_LOGO_TO.left}px;
               top: ${MORPH_LOGO_TO.top}px;
@@ -400,10 +435,10 @@ export default function App() {
               filter: blur(0px) drop-shadow(0 10px 28px rgba(0,0,0,0.34));
             }
             100% {
-              left: ${MORPH_LOGO_17.left}px;
-              top: ${MORPH_LOGO_17.top}px;
-              width: ${MORPH_LOGO_17.width}px;
-              height: ${MORPH_LOGO_17.height}px;
+              left: ${MORPH_LOGO_LAST.left}px;
+              top: ${MORPH_LOGO_LAST.top}px;
+              width: ${MORPH_LOGO_LAST.width}px;
+              height: ${MORPH_LOGO_LAST.height}px;
               opacity: 1;
               filter: blur(0px) drop-shadow(0 10px 30px rgba(0,0,0,0.28));
             }
@@ -421,14 +456,14 @@ export default function App() {
           </button>
 
           {/* Dot indicators */}
-          <div className="flex gap-1.5 items-center">
+          <div className="flex gap-2 items-center">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => { goToSlide(index); if (autoLoop) { stopAutoLoop(); startAutoLoop(); } }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${index === currentSlide
-                  ? 'w-6 bg-primary'
-                  : 'w-1.5 bg-white/30 hover:bg-white/55'
+                className={`h-2 rounded-full transition-all ${index === currentSlide
+                  ? 'w-8 bg-white'
+                  : 'w-2 bg-white/30 hover:bg-white/50'
                   }`}
               />
             ))}
@@ -454,87 +489,93 @@ export default function App() {
           <button
             onClick={toggleGridView}
             title={isGridView ? 'Grid view хаах (Esc)' : 'Grid view (Ctrl+G)'}
-            className={`w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-200 active:scale-95 ${isGridView ? 'bg-primary/30 border-primary/50' : 'bg-white/10 border-white/20 hover:bg-white/25'}`}
+            className="px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all text-sm"
           >
-            <LayoutGrid className={`w-4 h-4 ${isGridView ? 'text-primary' : 'text-white/80'}`} />
+            <LayoutGrid className="w-5 h-5" />
           </button>
 
           {/* Fullscreen toggle */}
           <button
             onClick={toggleFullscreen}
             title={isFullscreen ? 'Fullscreen гаарах (Esc)' : 'Fullscreen (Ctrl+F)'}
-            className="w-9 h-9 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/25 transition-all duration-200 active:scale-95"
+            className="px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 transition-all text-sm"
           >
             {isFullscreen
-              ? <Minimize2 className="w-4 h-4 text-white/80" />
-              : <Maximize2 className="w-4 h-4 text-white/80" />}
+              ? <Minimize2 className="w-5 h-5" />
+              : <Maximize2 className="w-5 h-5" />}
           </button>
         </div>
 
         {/* Grid view overlay */}
         {isGridView && (() => {
-          const cols = 4;
-          const gridPad = 64;
-          const gapPx = 16;
-          const thumbW = Math.floor((viewport.width - gridPad - gapPx * (cols - 1)) / cols);
-          const thumbH = Math.round(thumbW * (1028 / 1920));
-          const thumbScale = thumbW / 1920;
           return (
-            <div className="absolute inset-0 z-[100] bg-black/85 backdrop-blur-sm flex flex-col">
-              <style>{`.thumb-freeze, .thumb-freeze * { animation: none !important; transition: none !important; animation-play-state: paused !important; }`}</style>
-
-              {/* Header */}
-              <div className="flex items-center justify-between px-8 py-4 border-b border-white/10 flex-shrink-0">
-                <span className="text-white font-bold text-base tracking-wide">Бүх слайдууд</span>
-                <button
-                  onClick={() => setIsGridView(false)}
-                  className="w-8 h-8 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/25 transition-all duration-200"
-                >
-                  <X className="w-4 h-4 text-white/80" />
-                </button>
+            <div className="absolute inset-0 z-[100] box-border overflow-x-hidden overflow-y-auto bg-slate-950 p-8">
+              <div className="mx-auto grid w-full max-w-[1800px] grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+                {slides.map((_, index) => {
+                  const isActive = index === currentSlide;
+                  const meta = SLIDE_THUMBNAILS[index] ?? {
+                    title: `Slide ${index + 1}`,
+                    subtitle: '',
+                    accent: '#2ec5ff',
+                  };
+                  // Keep thumbnails static and lightweight. Rendering live slide
+                  // components here runs every animation/countup at once and makes
+                  // grid view sluggish on presentation screens.
+                  return (
+                    <div
+                      key={index}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => { goToSlide(index); setIsGridView(false); if (autoLoop) { stopAutoLoop(); startAutoLoop(); } }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          goToSlide(index);
+                          setIsGridView(false);
+                          if (autoLoop) { stopAutoLoop(); startAutoLoop(); }
+                        }
+                      }}
+                      className={`group relative aspect-[16/9] overflow-hidden rounded-lg border-2 transition-colors cursor-pointer ${isActive ? 'border-yellow-400 ring-4 ring-yellow-400/50' : 'border-white/20 hover:border-white/45'}`}
+                    >
+                      <div className="absolute inset-0 bg-[#06163d]">
+                        <img src={bgImage} alt="" aria-hidden="true" className="h-full w-full object-cover opacity-45" />
+                        <div className="absolute inset-0 bg-[#020611]/55" />
+                      </div>
+                      <div className="absolute inset-x-4 top-4 flex items-center justify-between">
+                        <span className="text-[11px] font-black uppercase tracking-[0.18em] text-white/50">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span className="h-1 w-12 rounded-full" style={{ background: meta.accent }} />
+                      </div>
+                      <div className="absolute inset-x-4 bottom-4">
+                        <p className="text-[20px] leading-[1.02] font-black text-white">{meta.title}</p>
+                        {meta.subtitle && (
+                          <p className="mt-1 text-[12px] leading-tight font-bold text-white/58">{meta.subtitle}</p>
+                        )}
+                      </div>
+                      <div
+                        className="absolute inset-x-0 bottom-0 h-1 origin-left"
+                        style={{ background: isActive ? '#facc15' : meta.accent }}
+                      />
+                      <div className="absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100" style={{ boxShadow: `inset 0 0 0 999px ${meta.accent}10` }} />
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[58px] font-black leading-none text-white/[0.045]">
+                        {index + 1}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
-              {/* Thumbnails grid */}
-              <div className="flex-1 overflow-y-auto overflow-x-hidden p-8">
-                <div
-                  className="grid gap-4"
-                  style={{ gridTemplateColumns: `repeat(${cols}, ${thumbW}px)` }}
-                >
-                  {slides.map((SlideComponent, index) => {
-                    const isActive = index === currentSlide;
-                    return (
-                      <button
-                        key={index}
-                        onClick={() => { goToSlide(index); setIsGridView(false); if (autoLoop) { stopAutoLoop(); startAutoLoop(); } }}
-                        className={`flex flex-col gap-2 rounded-xl p-1.5 ${isActive ? 'ring-2 ring-primary' : ''}`}
-                      >
-                        <div
-                          className="rounded-md overflow-hidden relative flex-shrink-0"
-                          style={{ width: thumbW, height: thumbH }}
-                        >
-                          <div
-                            className="thumb-freeze"
-                            style={{
-                              width: 1920,
-                              height: 1028,
-                              transform: `scale(${thumbScale})`,
-                              transformOrigin: 'top left',
-                              position: 'absolute',
-                              top: 0,
-                              left: 0,
-                              pointerEvents: 'none',
-                            }}
-                          >
-                            <SlideComponent />
-                          </div>
-                        </div>
-                        <span className={`text-xs font-semibold text-center pb-0.5 ${isActive ? 'text-primary' : 'text-white/40'}`}>
-                          {index + 1}
-                        </span>
-                      </button>
-                    );
-                  })}
+              <div className="fixed right-6 top-6 flex max-w-[calc(100vw-48px)] gap-4">
+                <div className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg text-white text-sm border border-white/20 hidden sm:block">
+                  Press G to exit grid view
                 </div>
+                <button
+                  onClick={() => setIsGridView(false)}
+                  className="px-6 py-2 bg-white/10 backdrop-blur-sm rounded-lg text-white hover:bg-white/20 transition-all border border-white/20"
+                >
+                  Exit Grid View
+                </button>
               </div>
             </div>
           );

@@ -1,184 +1,150 @@
 import type { CSSProperties } from 'react';
 import {
-  BookOpenText,
-  Clapperboard,
-  FileText,
-  Image as ImageIcon,
-  LayoutTemplate,
+  BadgeCheck,
+  BriefcaseBusiness,
+  Check,
+  Gauge,
+  Landmark,
+  ShieldCheck,
+  UsersRound,
+  Zap,
 } from 'lucide-react';
 
-const contentCards = [
+const levels = [
   {
     number: '01',
-    title: '• Нэвтрүүлэг. Хийсэн үндсэн ажлууд. Тогтоол шийдвэр.',
-    icon: Clapperboard,
+    title: 'Улс төрийн түвшин',
+    icon: Landmark,
     accent: '#2EC5FF',
-    items: [
-      '“Өмнө ба дараа”, “хөгжингүй орнуудад ямар байдаг вэ” гэсэн концепцтой.',
-      'Нэг сэдэв нэг рийл болох угсралттай.',
-    ],
+    items: ['эв нэгдэл', 'багийн сахилга', 'дотоод зөрчил багасгах'],
   },
   {
     number: '02',
-    title: '• Сэтгүүл',
-    icon: BookOpenText,
+    title: 'Засаглалын түвшин',
+    icon: Gauge,
     accent: '#F2B94B',
     items: [
-      'Үзэл санаа. Ерөнхий сайдын ярилцлага. Зохиогчийн нийтлэл. Хүлээн зөвшөөрөгдсөн хүмүүсийн эшлэл.',
-      'Хийсэн ажлууд. Чөлөөлье үзэл санааны тодотголтой.',
+      'KPI. Ур чадвар, туршлага эн тэргүүний шаардлага болно.',
+      'Тайлангийн мөчлөг. Төрийн албан хаагч байнга тайлан бэлтгэж цаг үрэхгүй.',
+      'Шийдвэрийн хурд. Шийдвэр гаргах хурдыг журамлав.',
     ],
   },
   {
     number: '03',
-    title: '• Нийтлэлүүд',
-    icon: FileText,
+    title: 'Олон нийтийн түвшин',
+    icon: UsersRound,
     accent: '#10B981',
-    items: [
-      '100 хоногийг тойрсон нийтлэлүүд.  ~3 нийтлэлч.',
-      ' Хөрөг.',
-      ' Харьцуулбар.',
-      ' Аль нэг ажлыг онцолсон. Гэх мэт хэлбэрүүдээр.',
-    ],
+    items: ['Ойлгомжтой харилцаа', 'Иргэдэд мэдрэгдэх бодит өөрчлөлт', 'Итгэл сэргээх бодит ажил'],
   },
-  {
-    number: '04',
-    title: '• Постер/постууд',
-    icon: ImageIcon,
-    accent: '#EF7B7B',
-    items: [
-      'Хийсэн ажлуудыг үзэл санааны тодотголтойгоор харуулах.',
-      'Жишээ нь тэтгэврийн шинэчлэлээр, “ .... ийм ийм зүйлүүд хийгдлээ.',
-      'Ийнхүү тэтгэвэр бодох зарчмын ойлгомжгүй байдлыг халж, цаг үе, нийгмийн шаардлагад нийцүүлэн тогтоов” гэх мэт.',
-    ],
-  },
+];
+
+const fastReturns = [
+  { text: 'Төрийн үйлчилгээний хурд', icon: Zap, accent: '#2EC5FF' },
+  { text: 'Бизнесийн дарамт буурах', icon: BriefcaseBusiness, accent: '#F2B94B' },
+  { text: 'Авлигын эсрэг бодит алхам', icon: ShieldCheck, accent: '#10B981' },
 ];
 
 export function Slide16() {
   return (
     <div className="w-full h-full relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute left-[76px] right-[76px] top-[152px] h-px bg-white/10" />
-        <div className="absolute left-[76px] right-[76px] bottom-[92px] h-px bg-white/10" />
-        <div className="absolute left-[76px] top-[188px] bottom-[92px] w-px bg-white/10" />
-        <div className="absolute right-[76px] top-[188px] bottom-[92px] w-px bg-white/10" />
-        <div className="absolute left-1/2 top-[188px] bottom-[92px] w-px bg-white/10" />
-        <div className="absolute left-[76px] right-[76px] top-1/2 h-px bg-white/10" />
-        <div className="absolute right-[102px] top-[146px] text-[220px] leading-none font-black text-white/[0.04]">
-          16
-        </div>
-        <div className="absolute left-[14%] top-[24%] w-[380px] h-[380px] rounded-full bg-primary/10 blur-[130px]" />
-        <div className="absolute right-[14%] bottom-[16%] w-[420px] h-[420px] rounded-full bg-chart-3/10 blur-[150px]" />
+        <div className="absolute -left-[330px] top-1/2 -translate-y-1/2 w-[720px] h-[720px] rounded-full border border-primary/[0.07] animate-[circle10_18s_linear_infinite]" />
+        <div className="absolute -right-[220px] top-[10%] w-[520px] h-[520px] rounded-full border border-chart-2/[0.06] animate-[circle10_15s_linear_infinite_reverse]" />
+        <div className="absolute right-[-70px] bottom-[-130px] text-[360px] leading-none text-white/[0.018] font-black">03</div>
       </div>
 
-      <main className="relative z-10 h-full px-10 pt-8 pb-8 flex flex-col">
-        <header className="mb-6 animate-[fade16_.7s_ease-out_both]">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/45 px-5 py-2 mb-4">
-            <LayoutTemplate className="w-4 h-4 text-primary" />
-            <span className="text-sm text-primary font-black uppercase tracking-[0.22em]">
-              Контентийн төлөвлөгөө
-            </span>
-          </div>
-
-          <div className="flex items-end justify-between gap-8">
-            <h1 className="max-w-[1080px] text-[58px] leading-[0.95] font-black tracking-tight text-white" style={{ animation: 'blueGlow 2.5s ease-in-out 0s infinite' }}>
-              ТӨЛӨВЛӨСӨН
-              <br />
-              <span className="text-primary">ҮНДСЭН КОНТЕНТУУД</span>
-            </h1>
-            <div className="rounded-[22px] border border-chart-3/35 bg-[#06163d]/55 px-6 py-4 backdrop-blur-sm">
-              <p className="text-[12px] font-black uppercase tracking-[0.22em] text-chart-3">
-                Бүгд ардаа тохирсон зурагтай байх
-              </p>
+      <main className="relative z-10 h-full px-11 pt-7 pb-16 flex flex-col">
+        <header className="flex items-start justify-between animate-[fade10_.7s_ease-out_both]">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="w-9 h-9 rounded-full border border-primary/50 flex items-center justify-center"><BadgeCheck className="w-5 h-5 text-primary" /></span>
+              <span className="text-[13px] text-primary font-black uppercase tracking-[0.24em]">100 өдрийн үр дүн</span>
             </div>
+            <h1 className="text-[49px] leading-[0.98] text-white font-black tracking-tight" style={{ animation: 'blueGlow 2.5s ease-in-out 0s infinite' }}>
+              “ЧӨЛӨӨЛӨЛТИЙН <span className="text-primary">100 ӨДӨР</span>”-ИЙН
+              <br />
+              ҮР ДҮНГИЙН <span className="text-primary">3 ТҮВШИН</span>
+            </h1>
           </div>
         </header>
 
-        <section className="flex-1 min-h-0 grid grid-cols-2 grid-rows-2 gap-5">
-          {contentCards.map(({ number, title, icon: Icon, accent, items }, index) => (
-            <article
-              key={number}
-              tabIndex={0}
-              className="group relative overflow-hidden rounded-[34px] border border-white/14 bg-white/[0.035] outline-none transition-all duration-500 hover:-translate-y-1.5 hover:border-white/24 hover:bg-white/[0.05] focus-visible:-translate-y-1.5 focus-visible:border-white/24 focus-visible:bg-white/[0.05] animate-[card16_.72s_cubic-bezier(.22,1,.36,1)_both]"
-              style={{ animationDelay: `${0.12 + index * 0.12}s` } as CSSProperties}
-            >
-              <div className="absolute inset-0 backdrop-blur-[18px]" />
-              <div
-                className="absolute -left-16 top-[-30px] h-36 w-36 rounded-full blur-[72px] transition-transform duration-700 group-hover:scale-125 group-hover:translate-x-4"
-                style={{ background: `${accent}24` }}
-              />
-              <div
-                className="absolute -right-12 bottom-[-28px] h-32 w-32 rounded-full blur-[68px] transition-transform duration-700 group-hover:scale-125 group-hover:-translate-x-3"
-                style={{ background: `${accent}18` }}
-              />
-              <div className="absolute inset-0 bg-[#06163d]/52 transition-colors duration-500 group-hover:bg-[#06163d]/46" />
-              <div
-                className="absolute left-0 top-0 bottom-0 w-[3px] transition-all duration-500 group-hover:w-[6px] focus-visible:w-[6px]"
-                style={{ background: accent, boxShadow: `0 0 18px ${accent}66` }}
-              />
-
-              <div className="relative z-10 h-full p-6 flex flex-col">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <span
-                      className="inline-flex w-12 h-12 rounded-full border items-center justify-center flex-shrink-0 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6"
-                      style={{ borderColor: `${accent}66`, color: accent, background: 'rgba(255,255,255,0.03)' }}
-                    >
-                      <Icon className="w-5 h-5" />
-                    </span>
-                    <div>
-                      <p className="text-[11px] font-black uppercase tracking-[0.22em]" style={{ color: accent }}>
-                        {number}
-                      </p>
-                      <p className="mt-1 text-[14px] font-black uppercase tracking-[0.18em] text-white/55">
-                        Контент
-                      </p>
-                    </div>
-                  </div>
-
-                  <span
-                    className="h-1.5 w-16 rounded-full flex-shrink-0 transition-all duration-500 group-hover:w-28"
-                    style={{ background: accent, boxShadow: `0 0 20px ${accent}55` }}
-                  />
+        <div className="flex-1 min-h-0 flex flex-col justify-center pt-7 pb-5">
+          <section className="flex">
+            {levels.map(({ number, title, icon: Icon, accent, items }, index) => (
+              <article
+                key={title}
+                className="relative flex-1 px-6 first:pl-0 last:pr-0 animate-[level10_.7s_ease-out_both]"
+                style={{ animationDelay: `${0.15 + index * 0.14}s` } as CSSProperties}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[60px] leading-none font-black" style={{ color: accent }}>{number}</span>
+                  <span className="w-12 h-12 rounded-full border flex items-center justify-center" style={{ color: accent, borderColor: `${accent}70` }}>
+                    <Icon className="w-6 h-6" />
+                  </span>
                 </div>
+                <h2 className="mt-2 text-[27px] leading-tight text-white font-black">{title}</h2>
+                <div className="mt-3 h-1 w-20 animate-[accent10_1s_ease-out_both]" style={{ background: accent, animationDelay: `${0.45 + index * 0.14}s` }} />
 
-                <div className="mt-5">
-                  <h2 className="max-w-[760px] text-[27px] leading-[1.1] font-black text-white">
-                    {title}
-                  </h2>
-                </div>
-
-                <div className="mt-5 flex-1 flex flex-col gap-3">
+                <ul className="mt-3 border-t border-white/18">
                   {items.map((item, itemIndex) => (
-                    <div
-                      key={`${number}-${itemIndex}`}
-                      className="rounded-[22px] border border-white/10 bg-white/[0.035] px-4 py-3 backdrop-blur-md transition-all duration-300 group-hover:translate-x-1 group-hover:bg-white/[0.055]"
+                    <li
+                      key={item}
+                      className="border-b border-white/18 py-3 flex items-start gap-3 animate-[item10_.5s_ease-out_both]"
+                      style={{ animationDelay: `${0.3 + index * 0.14 + itemIndex * 0.08}s` } as CSSProperties}
                     >
-                      <div className="flex items-start gap-3">
-                        <span
-                          className="mt-[9px] h-2.5 w-2.5 rounded-full flex-shrink-0"
-                          style={{ background: accent, boxShadow: `0 0 14px ${accent}55` }}
-                        />
-                        <p className="text-[16px] leading-[1.3] font-bold text-white/90">{item}</p>
-                      </div>
-                    </div>
+                      <Check className="mt-0.5 w-5 h-5 flex-shrink-0 stroke-[3]" style={{ color: accent }} />
+                      <p className="text-[17px] leading-[1.18] text-white/88 font-bold">{item}</p>
+                    </li>
                   ))}
-                </div>
+                </ul>
+              </article>
+            ))}
+          </section>
+
+          <section className="mt-8 border-t-2 border-primary/45 pt-4">
+            <div className="flex items-end justify-between mb-3">
+              <div>
+                <p className="text-[12px] text-primary font-black uppercase tracking-[0.24em]">Гол point • Шууд мэдрэгдэх үр дүн</p>
+                <h2 className="mt-1 text-[27px] text-white font-black uppercase tracking-[0.08em]">ХАМГИЙН ХУРДАН МЭДРЭГДЭХ УЛС ТӨРИЙН ӨГӨӨЖ:</h2>
               </div>
-            </article>
-          ))}
-        </section>
+              <span className="text-[64px] leading-none text-primary font-black animate-[pulseNumber10_2.4s_ease-in-out_infinite]">03</span>
+            </div>
+            <div className="flex items-stretch gap-4">
+              {fastReturns.map(({ text, icon: Icon, accent }, index) => (
+                <div
+                  key={text}
+                  className="group relative flex-1 min-h-[138px] border-y border-white/20 py-4 flex items-center gap-4 overflow-hidden animate-[return10_.65s_ease-out_both]"
+                  style={{ animationDelay: `${0.6 + index * 0.12}s` } as CSSProperties}
+                >
+                  <span className="absolute right-0 top-0 text-[68px] leading-none font-black opacity-[0.07]" style={{ color: accent }}>{String(index + 1).padStart(2, '0')}</span>
+                  <span className="relative w-16 h-16 rounded-full border-2 flex items-center justify-center flex-shrink-0 animate-[impactIcon10_2.5s_ease-in-out_infinite]" style={{ color: accent, borderColor: `${accent}90`, animationDelay: `${index * 0.3}s` }}>
+                    <Icon className="w-8 h-8" />
+                    <span className="absolute inset-[-7px] rounded-full border opacity-45 animate-[impactRing10_2.5s_ease-out_infinite]" style={{ borderColor: accent, animationDelay: `${index * 0.3}s` }} />
+                  </span>
+                  <div className="relative">
+                    <p className="text-[12px] font-black uppercase tracking-[0.18em]" style={{ color: accent }}>Өгөөж {String(index + 1).padStart(2, '0')}</p>
+                    <p className="mt-1 text-[27px] leading-[1.08] text-white font-black">{text}</p>
+                    <span className="block mt-3 h-1 w-24 animate-[impactLine10_1.2s_ease-out_both]" style={{ background: accent, animationDelay: `${0.85 + index * 0.12}s` }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
 
       <style>{`
-        @keyframes fade16 { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes card16 {
-          from { opacity: 0; transform: translateY(22px) scale(.98); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        @keyframes blueGlow {
-          0%,100% { text-shadow: 0 0 18px rgba(46,197,255,0.35); }
-          50% { text-shadow: 0 0 42px rgba(46,197,255,0.85), 0 0 80px rgba(46,197,255,0.3); }
-        }
+        @keyframes fade10 { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes level10 { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: translateY(0) } }
+        @keyframes item10 { from { opacity: 0; transform: translateX(-12px) } to { opacity: 1; transform: translateX(0) } }
+        @keyframes return10 { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: translateY(0) } }
+        @keyframes accent10 { from { transform: scaleX(0); transform-origin: left } to { transform: scaleX(1); transform-origin: left } }
+        @keyframes impactLine10 { from { transform: scaleX(0); transform-origin: left } to { transform: scaleX(1); transform-origin: left } }
+        @keyframes impactIcon10 { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-4px) } }
+        @keyframes impactRing10 { 0% { transform: scale(.86); opacity: .5 } 100% { transform: scale(1.35); opacity: 0 } }
+        @keyframes pulseNumber10 { 0%,100% { opacity: .55 } 50% { opacity: 1 } }
+        @keyframes circle10 { from { transform: translateY(-50%) rotate(0) } to { transform: translateY(-50%) rotate(360deg) } }
+        @keyframes blueGlow { 0%,100% { text-shadow: 0 0 18px rgba(46,197,255,0.35); } 50% { text-shadow: 0 0 42px rgba(46,197,255,0.85), 0 0 80px rgba(46,197,255,0.3); } }
       `}</style>
     </div>
   );

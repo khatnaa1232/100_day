@@ -35,7 +35,6 @@ function pngToDataUri(path) {
   return `data:image/png;base64,${data.toString('base64')}`;
 }
 
-const TOTAL = 17;
 const WIDTH = 1920;
 const HEIGHT = 1028;
 const PDF_WIDTH_MM = 320;
@@ -66,6 +65,18 @@ const page = await browser.newPage();
 await page.setViewportSize({ width: WIDTH, height: HEIGHT });
 await page.goto('http://localhost:7791', { waitUntil: 'networkidle', timeout: 30000 });
 
+const total = await page.evaluate(() => {
+  const counter = [...document.querySelectorAll('span')]
+    .map((element) => element.textContent?.trim() ?? '')
+    .find((text) => /^\d+\s*\/\s*\d+$/.test(text));
+  const match = counter?.match(/\/\s*(\d+)$/);
+  return match ? Number(match[1]) : 0;
+});
+
+if (!total) {
+  throw new Error('Could not detect slide count from the presentation controls.');
+}
+
 // Hide only the navigation control bar using its specific Tailwind classes
 await page.addStyleTag({
   content: `
@@ -87,7 +98,7 @@ await page.waitForTimeout(200);
 const screenshotPaths = [];
 mkdirSync(outDir, { recursive: true });
 
-for (let i = 0; i < TOTAL; i++) {
+for (let i = 0; i < total; i++) {
   if (i > 0) {
     await page.keyboard.press('ArrowRight');
     await page.waitForTimeout(NAV_WAIT);
@@ -98,7 +109,7 @@ for (let i = 0; i < TOTAL; i++) {
   screenshotPaths.push(path);
 
   const size = readFileSync(path).length;
-  console.log(`Slide ${i + 1}/${TOTAL} captured — ${(size / 1024).toFixed(0)} KB`);
+  console.log(`Slide ${i + 1}/${total} captured — ${(size / 1024).toFixed(0)} KB`);
 }
 
 console.log('Generating PDF...');

@@ -44,6 +44,10 @@ async function inlineCssAssets(css, cssPath) {
 
 let html = await readFile(inputPath, 'utf8');
 
+html = html
+  .replace(/<link\b[^>]*rel=["']preconnect["'][^>]*>\s*/g, '')
+  .replace(/<link\b[^>]*href=["']https?:\/\/[^"']+["'][^>]*>\s*/g, '');
+
 const stylesheetMatches = [...html.matchAll(/<link\b[^>]*href=["']([^"']+\.css)["'][^>]*>/g)];
 for (const match of stylesheetMatches) {
   const cssPath = assetPath(match[1]);

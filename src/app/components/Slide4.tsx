@@ -1,180 +1,254 @@
-import chuluuluvImg from '../../imports/chuluuluv.png';
-import unlockedImg from '../../imports/unlocked.png';
+import { useEffect, useRef, type CSSProperties } from 'react';
+import * as THREE from 'three';
+import slide21Img from '../../imports/slide_2_1.jpg';
+import slide22Img from '../../imports/slide_2_2.jpg';
+import slide23Img from '../../imports/slide_2_3.jpg';
+import slide24Img from '../../imports/slide_2_4.png';
+import slide25Img from '../../imports/slide_2_5.jpg';
+import slide26Img from '../../imports/slide_2_6.png';
 
-const unlockCards = [
-  {
-    unlock: '#Unlock 1',
-    date: '2026.04.06',
-    title: 'Хаагдсан дансыг нээв',
-    body: [
-      'Жижиг бизнесүүд: талх, боовны цех, дугуй засвар, кофе шоп, үсчин.',
-    ],
-  },
-  {
-    unlock: '#Unlock 2',
-    date: '2026.04.06',
-    title: 'Татвар, НДШ-ийн дансыг нээв',
-    body: [
-      'Татварын 12,153 компани, ААН-ийн дансыг сарын хугацаатай нээв.',
-      '1,700+ ААН өрөөс бүрэн чөлөөлөгдөж, 72.4 тэрбум төгрөг төлөгдөв.',
-      'НДШ-ийн 155.6 тэрбум төгрөгийн өртэй 23,480 компани, байгууллагын дансыг нээв.',
-    ],
-  },
-  {
-    unlock: '#Unlock 3',
-    date: '2026.04.15',
-    title: 'Зөвшөөрлөөс чөлөөлөв',
-    body: [
-      '146 бизнесийг `www.e-business.mn`, `www.licence.mn`-д гар утаснаасаа мэдэгдээд шууд эхлүүлж байна.',
-      'Гэрээ, дүгнэлт, тохирол зэрэг нэрээ өөрчилсөн зөвшөөрөл биш шаардлагуудаас чөлөөлөв.',
-    ],
-  },
-  {
-    unlock: '#Unlock 4',
-    date: '2026.05.19',
-    title: 'Татварын чөлөөлөлт',
-    body: [
-      'Хувийн хэвшил, хөдөлмөрлөж бүтээгчдээ дарамтаас чөлөөлнө.',
-      'Татварын багц хуулийн шинэчлэл 2027.01.01-нээс хэрэгжинэ.',
-      'Онцлох 6 чөлөөлөлтийн постер.',
-    ],
-  },
-  {
-    unlock: '#Unlock 5',
-    date: '2026.06.15',
-    title: 'E-business 2.0: Иргэндээ очиж үйлчилдэг төр',
-    body: [
-      '321 зөвшөөрлийг цаасаар биш цахимаар авч, цаг мөнгөө хэмнэдэг болов.',
-      'AI ашиглан 30 минутанд нэрээ сонгон авч, бүртгүүлж, тамгаа захиалж, дансаа нээлгэдэг боллоо.',
-      'Компанитай холбоотой 10+ төрлийн мэдээллийг цахимаар авна.',
-      'API SERVICE-ийг хувийн хэвшилд нээж, GS25, CU, банкны апп-аас төрийн үйлчилгээ авч байна.',
-    ],
-  },
-  {
-    unlock: '#Unlock 6',
-    date: '2026.04.18',
-    title: 'Төлөвлөгөөт 9376 хяналт шалгалтыг цуцлав',
-    body: [
-      'Нэг компанид жилд 30+ удаа очих боломжтой байсан 1,700+ улсын байцаагчийн 8,100+ дүрэм журмын хяналтаас чөлөөлөв.',
-      'Хүний эрүүл мэнд, байгаль орчинд сөрөг нөлөөгүйгээс бусад 2026 оны төлөвлөгөөт бүх шалгалтаас хувийн хэвшлээ чөлөөлөв.',
-    ],
-  },
-  {
-    unlock: '#Unlock 7',
-    date: '2026.05.01',
-    title: 'Эмч, багш нараа ойлгомжгүй цалингаас чөлөөлөв',
-    body: [
-      '131,340 эмч, багш, эрүүл мэнд боловсролын салбарын ажилтнаа “хоёр цалин”-гийн ойлгомжгүй байдлаас чөлөөлөв.',
-    ],
-  },
-  {
-    unlock: '#Unlock 8',
-    date: '',
-    title: 'Түлш шатахууны хомсдол, үнийн огцом өсөлтийн эрсдлээс чөлөөлөв',
-    body: [
-      'ОХУ-тай идэвхтэй яриа хэлцэл хийж, түлш шатахууны хомсдолын аюулаас чөлөөлөв.',
-      'Үнийн огцом өсөлтөөр гарах байсан 1.8 их наяд төгрөгийн нэмэлт зардлаас чөлөөлөв.',
-      'Шатахууны үнийн хөөсрөлийн эрсдлийг буурууллаа.',
-    ],
-  },
-  {
-    unlock: '#Unlock 9',
-    date: '',
-    title: 'Давхардсан тайлангаас төрийн албан хаагчдаа чөлөөлөв',
-    body: [
-      'Төрийн албан хаагчдаа давхардсан тайлангаас чөлөөлөв.',
-      'Долоо хоногийн нэг өдөр цахимаар ажилладаг болов.',
-      'Тайлан бичих цаг 70%, иргэдэд үйлчлэх цаг 30% байсан бүтцийг өөрчилж эхлэв.',
-    ],
-  },
+const IMAGES = [slide21Img, slide22Img, slide23Img, slide24Img, slide25Img, slide26Img];
+
+// Top-center calendar header — order: 100 ЧӨЛӨӨЛӨЛТ → 100 ӨДӨР → ОНЦЛОХ 12
+const calTiles = [
+  { num: '100', label: 'ЧӨЛӨӨЛӨЛТ', accent: '#2ec5ff', glow: 'rgba(46,197,255,0.5)' },
+  { num: '100', label: 'ӨДӨР', accent: '#f2b94b', glow: 'rgba(242,185,75,0.45)' },
+  { num: '12', label: 'ОНЦЛОХ', accent: '#22c55e', glow: 'rgba(34,197,94,0.45)' },
 ];
 
+// Curved-slider options (from the reference: speed/gap/curve/direction)
+const OPTIONS = { gap: 10, curve: 14, direction: -1 };
+const SCROLL_UNITS_PER_MS = 0.00014; // gentle, smooth scroll
+const MAX_TEX_W = 720; // downscale huge source images before GPU upload
+
+const VERTEX_SHADER = `
+  uniform float curve;
+  varying vec2 vertexUV;
+  void main() {
+    vertexUV = uv;
+    vec3 newPosition = position;
+    float distanceFromCenter = abs((modelMatrix * vec4(position, 1.0)).x);
+    newPosition.y *= 1.0 + (curve / 100.0) * pow(distanceFromCenter, 2.0);
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+  }
+`;
+
+const FRAGMENT_SHADER = `
+  uniform sampler2D tex;
+  varying vec2 vertexUV;
+  void main() {
+    gl_FragColor = texture2D(tex, vertexUV);
+  }
+`;
+
+const widthFactor = (gap: number) => 1 + gap / 100;
+
 export function Slide4() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const width = el.clientWidth || 1920;
+    const height = el.clientHeight || 1028;
+
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'high-performance' });
+    } catch {
+      return; // WebGL unavailable — fail gracefully
+    }
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(1); // keep the composited layer cheap during slide morphs
+    // Passthrough colour: display the photos exactly as the source files, no colour-space filter.
+    THREE.ColorManagement.enabled = false;
+    renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+    el.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 20);
+    camera.position.z = 2;
+
+    const vFov = (camera.fov * Math.PI) / 180;
+    const worldHeight = 2 * Math.tan(vFov / 2) * camera.position.z;
+    const worldWidth = worldHeight * (width / height);
+    const planeSpacePx = (width / worldWidth) * widthFactor(OPTIONS.gap);
+    const totalPlanes = Math.ceil(width / planeSpacePx) + 1 + IMAGES.length;
+    const initialOffset = Math.ceil(width / (2 * planeSpacePx) - 0.5);
+
+    let disposed = false;
+
+    // Dark placeholder shown until each photo's downscaled texture is ready.
+    const placeholder = new THREE.DataTexture(new Uint8Array([8, 18, 38, 255]), 1, 1, THREE.RGBAFormat);
+    placeholder.needsUpdate = true;
+
+    const geometry = new THREE.PlaneGeometry(1, 1, 20, 20);
+    const materials: THREE.ShaderMaterial[] = [];
+    const materialSlot: number[] = [];
+
+    for (let i = 0; i < totalPlanes; i++) {
+      const slot = i % IMAGES.length;
+      const material = new THREE.ShaderMaterial({
+        uniforms: { tex: { value: placeholder }, curve: { value: OPTIONS.curve } },
+        vertexShader: VERTEX_SHADER,
+        fragmentShader: FRAGMENT_SHADER,
+        transparent: true,
+      });
+      materials.push(material);
+      materialSlot.push(slot);
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.x = -1 * OPTIONS.direction * (i - initialOffset) * widthFactor(OPTIONS.gap);
+      scene.add(mesh);
+    }
+
+    // 6 unique downscaled textures, shared across the repeated planes (instead of one big
+    // texture per plane). Each CanvasTexture is created at its final size → no resize re-upload.
+    const realTextures: THREE.Texture[] = [];
+    const loaderImages: HTMLImageElement[] = [];
+    IMAGES.forEach((url, slot) => {
+      const img = new Image();
+      img.onload = () => {
+        if (disposed) return;
+        const scale = Math.min(1, MAX_TEX_W / img.width);
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(2, Math.round(img.width * scale));
+        canvas.height = Math.max(2, Math.round(img.height * scale));
+        canvas.getContext('2d')?.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const tex = new THREE.CanvasTexture(canvas);
+        tex.needsUpdate = true;
+        realTextures.push(tex);
+        materials.forEach((m, mi) => {
+          if (materialSlot[mi] === slot) m.uniforms.tex.value = tex;
+        });
+      };
+      loaderImages.push(img);
+      img.src = url;
+    });
+
+    const loopDistance = widthFactor(OPTIONS.gap) * IMAGES.length;
+    const startTime = performance.now();
+    let raf = 0;
+    let paused = false;
+
+    const animate = (now: number) => {
+      raf = requestAnimationFrame(animate);
+      if (paused) return;
+      // framerate-independent, seamlessly-looping scroll; rendered every frame for a smooth cadence
+      const pos = ((now - startTime) * SCROLL_UNITS_PER_MS) % loopDistance;
+      scene.position.x = OPTIONS.direction * pos;
+      renderer.render(scene, camera);
+    };
+    raf = requestAnimationFrame(animate);
+
+    const onVisibility = () => { paused = document.hidden; };
+    document.addEventListener('visibilitychange', onVisibility);
+
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(raf);
+      document.removeEventListener('visibilitychange', onVisibility);
+      loaderImages.forEach((img) => { img.onload = null; });
+      placeholder.dispose();
+      realTextures.forEach((t) => t.dispose());
+      materials.forEach((m) => m.dispose());
+      geometry.dispose();
+      renderer.dispose();
+      renderer.forceContextLoss();
+      if (renderer.domElement.parentNode) {
+        renderer.domElement.parentNode.removeChild(renderer.domElement);
+      }
+    };
+  }, []);
+
   return (
-    <div className="relative h-full w-full overflow-hidden">
+    <div className="relative h-full w-full overflow-hidden text-white">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-24 left-[8%] h-[300px] w-[520px] rounded-full bg-[#f2b94b]/12 blur-[110px]" />
-        <div className="absolute top-[16%] right-[4%] h-[420px] w-[420px] rounded-full bg-[#2ec5ff]/14 blur-[140px]" />
-        <div className="absolute bottom-[-8%] left-[28%] h-[260px] w-[560px] rounded-full bg-[#5b6cff]/16 blur-[140px]" />
+        <div className="absolute -top-24 left-[8%] h-[300px] w-[520px] rounded-full bg-[#2ec5ff]/12 blur-[150px]" />
+        <div className="absolute bottom-[-14%] right-[8%] h-[320px] w-[480px] rounded-full bg-[#f2b94b]/10 blur-[150px]" />
       </div>
 
-      <main className="relative z-10 flex h-full flex-col px-8 pt-6 pb-7">
-        <header className="mb-5">
-          <div className="inline-flex items-center gap-3 rounded-full border border-white/12 bg-white/6 px-4 py-2 backdrop-blur-md">
-            <img src={chuluuluvImg} alt="Чөлөөлөв" className="h-8 w-auto object-contain" />
-            <span className="text-[13px] font-black uppercase tracking-[0.22em] text-[#7dd3fc]">
-              100 Өдөр 100 Чөлөөлөлт
-            </span>
-          </div>
+      {/* Curved slider canvas */}
+      <div ref={containerRef} className="absolute inset-0 z-10" />
 
-          <div className="mt-4 flex items-end justify-between gap-8">
-            <div>
-              <h1 className="max-w-[980px] text-[44px] leading-[0.98] font-black tracking-[-0.04em] text-white">
-                Чөлөөлөлтийн 100 өдөрт хэнийг юунаас чөлөөлөв?
-              </h1>
-              <p className="mt-3 text-[20px] font-bold text-white/72">
-                100 ӨДӨР 100 ЧӨЛӨӨЛӨЛТ: ОНЦЛОХ 10
-              </p>
-            </div>
-          </div>
-        </header>
-
-        <section className="grid flex-1 grid-cols-3 grid-rows-3 gap-4">
-          {unlockCards.map((card, index) => (
-            <article
-              key={card.unlock}
-              className="group relative overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(10,24,58,0.94),rgba(7,18,46,0.96))] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.22)] animate-[fadeIn_0.55s_ease-out_both]"
-              style={{ animationDelay: `${0.12 + index * 0.08}s` }}
-            >
-              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#f2b94b] via-[#2ec5ff] to-[#10b981]" />
-              <div className="absolute right-3 top-3 opacity-[0.08]">
-                <img src={unlockedImg} alt="" className="h-20 w-auto object-contain" />
+      {/* Top-center calendar header */}
+      <header className="absolute left-1/2 top-7 z-30 -translate-x-1/2" style={{ perspective: '1200px' }}>
+        <div className="s4cal-card">
+          <div className="s4cal-row">
+            {calTiles.map((tile, i) => (
+              <div
+                key={tile.label}
+                className="s4cal-tile"
+                style={{ animation: `s4CalDrop .6s cubic-bezier(.22,1,.36,1) ${0.45 + i * 0.22}s both` } as CSSProperties}
+              >
+                <span
+                  className="s4cal-num"
+                  style={{
+                    color: tile.accent,
+                    ['--g' as string]: tile.glow,
+                    animation: `s4CalGlow 3.2s ease-in-out ${1 + i * 0.22}s infinite`,
+                  } as CSSProperties}
+                >
+                  {tile.num}
+                </span>
+                <span className="s4cal-label">{tile.label}</span>
               </div>
-              <div className="absolute -right-10 -bottom-12 h-28 w-28 rounded-full bg-[#2ec5ff]/8 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
-
-              <div className="relative z-10 flex h-full flex-col">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-[13px] font-black uppercase tracking-[0.18em] text-[#f2b94b]">
-                      {card.unlock}
-                    </p>
-                    {card.date ? (
-                      <p className="mt-1 text-[12px] font-semibold text-white/55">{card.date}</p>
-                    ) : null}
-                  </div>
-
-                  <img src={unlockedImg} alt="Unlocked" className="h-12 w-auto object-contain opacity-90" />
-                </div>
-
-                <h2 className="mt-3 text-[20px] leading-[1.02] font-black tracking-[-0.03em] text-white">
-                  {card.title}
-                </h2>
-
-                <div className="mt-3 flex-1 space-y-2">
-                  {card.body.map((line) => (
-                    <p key={line} className="flex items-start gap-2 text-[12.5px] leading-[1.32] font-medium text-white/84">
-                      <span
-                        className="mt-[3px] block h-2.5 w-2.5 flex-shrink-0 rounded-full shadow-[0_0_10px_rgba(46,197,255,0.45)]"
-                        style={{ background: '#f59e0b', boxShadow: '0 0 10px rgba(245,158,11,0.55)' }}
-                      />
-                      <span>{line}</span>
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))}
-        </section>
-      </main>
+            ))}
+          </div>
+        </div>
+      </header>
 
       <style>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
+        .s4cal-card {
+          border-radius: 22px;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: linear-gradient(180deg, rgba(6,22,61,0.34), rgba(6,22,61,0.18));
+          box-shadow: 0 25px 50px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.10);
+          backdrop-filter: blur(2.5px) saturate(115%);
+          -webkit-backdrop-filter: blur(2.5px) saturate(115%);
+          padding: 12px 30px 18px;
+          transform-origin: top center;
+          animation: s4CalOpen .8s cubic-bezier(.22,1,.36,1) both;
+        }
+        .s4cal-row { display: flex; align-items: stretch; }
+        .s4cal-tile {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-width: 172px;
+          padding: 0 28px;
+          will-change: clip-path, opacity, transform;
+        }
+        .s4cal-tile + .s4cal-tile { border-left: 1px solid rgba(255,255,255,0.12); }
+        .s4cal-num {
+          font-size: 58px;
+          line-height: 0.9;
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          font-variant-numeric: tabular-nums;
+        }
+        .s4cal-label {
+          margin-top: 8px;
+          font-size: 16px;
+          font-weight: 900;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.82);
+        }
+
+        @keyframes s4CalOpen {
+          0% { opacity: 0; transform: rotateX(-85deg) translateY(-24px); }
+          100% { opacity: 1; transform: rotateX(0deg) translateY(0); }
+        }
+        @keyframes s4CalDrop {
+          0% { clip-path: inset(0 0 100% 0); opacity: 0; transform: translateY(-12px); }
+          55% { opacity: 1; }
+          100% { clip-path: inset(0 0 0 0); opacity: 1; transform: translateY(0); }
+        }
+        @keyframes s4CalGlow {
+          0%, 100% { text-shadow: 0 0 16px var(--g); }
+          50% { text-shadow: 0 0 34px var(--g), 0 0 60px var(--g); }
         }
       `}</style>
     </div>
